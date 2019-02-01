@@ -1,14 +1,14 @@
 //
-//  AddIngredientsViewController.swift
+//  ListFavoritesRecipesViewController.swift
 //  Reciplease
 //
-//  Created by Jean-François Santolaria on 31/01/2019.
+//  Created by Jean-François Santolaria on 01/02/2019.
 //  Copyright © 2019 OpenClassroomsFRSantolariaJF. All rights reserved.
 //
 
 import UIKit
 
-class AddIngredientsViewController: UIViewController {
+class ListFavoritesRecipesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
