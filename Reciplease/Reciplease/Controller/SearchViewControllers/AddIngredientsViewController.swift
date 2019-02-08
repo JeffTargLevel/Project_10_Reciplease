@@ -13,6 +13,8 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addIngredientsTextField: UITextField!
     @IBOutlet weak var addedIngredientsTextView: UITextView!
     
+    var recipesService = RecipesService()
+    
     private func addIngredients() {
         guard let ingredient = addIngredientsTextField.text,
             var listIngredients = addedIngredientsTextView.text else {
@@ -41,6 +43,7 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func tapSearchForRecipesButton(_ sender: Any) {
+        recipesService.getRecipes()
     }
 }
 
