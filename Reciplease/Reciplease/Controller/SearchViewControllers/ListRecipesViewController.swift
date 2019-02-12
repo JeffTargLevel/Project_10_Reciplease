@@ -11,26 +11,52 @@ import UIKit
 class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var listRecipesTableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var recipesFound: RecipesFound?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateRequest()
     }
     
+    func toggleActivityIndicator(shown: Bool) {
+        listRecipesTableView.isHidden = shown
+        activityIndicator.isHidden = !shown
+    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    private func updateRequest() {
+        toggleActivityIndicator(shown: true)
+        RecipesService.getRecipes { (success, recipesFound) in
+            self.toggleActivityIndicator(shown: false)
+            if success, let recipesFound = recipesFound {
+                self.recipesFound = recipesFound
+                RecipesService.add(recipe: recipesFound)
+                self.listRecipesTableView.reloadData()
+            } else {
+                self.presentAlert()
+            }
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return RecipesService.recipes.count
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Recipe cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else {
+            return UITableViewCell()
+        }
+        let recipe = RecipesService.recipes[indexPath.row]
+        cell.configure(with: #imageLiteral(resourceName: "RecipeStandardImage"), recipeTitle: recipe.name, recipeDetail: recipe.ingredients)
         return cell
     }
     
-
-    
-    
-    
-    
-    
-
+    private func presentAlert() {
+        presentAlert(withTitle: "Error", message: "Search failed")
+    }
 }

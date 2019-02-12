@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Recipe {
-    var name: String?
-    var ingredients: String?
+protocol Recipe {
+    var name: String { get }
+    var ingredients: String { get }
 }

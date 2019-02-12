@@ -44,7 +44,7 @@
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="XWB-KS-sOd"/>
                                                 </connections>
@@ -234,31 +234,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Acf-lF-lHE">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Lu5-3d-LZf">
+                                <rect key="frame" x="169" y="290.5" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <tableView clipsSubviews="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="1" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Acf-lF-lHE">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                                <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Recipe cell" rowHeight="120" id="kqf-0T-0U3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="120" id="kqf-0T-0U3" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kqf-0T-0U3" id="NlI-04-sr6">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kqf-0T-0U3" id="NlI-04-sr6">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RecipeStandardImage" translatesAutoresizingMaskIntoConstraints="NO" id="MtN-R9-kK5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHV-bP-rcJ">
-                                                    <rect key="frame" x="15" y="87.5" width="384" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHV-bP-rcJ">
+                                                    <rect key="frame" x="15" y="87.5" width="345" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21.329999999999998" id="Ljb-Tr-WAZ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1H-LX-ABN">
-                                                    <rect key="frame" x="15" y="58" width="384" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1H-LX-ABN">
+                                                    <rect key="frame" x="15" y="58" width="345" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21.670000000000002" id="3dT-lO-SFN"/>
                                                     </constraints>
@@ -281,22 +284,27 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="RecipeDetailLabel" destination="tHV-bP-rcJ" id="wuj-zP-Rkx"/>
+                                            <outlet property="RecipeImageView" destination="MtN-R9-kK5" id="vRy-3G-7mj"/>
+                                            <outlet property="RecipeTitleLabel" destination="u1H-LX-ABN" id="SfT-HM-d4G"/>
                                             <segue destination="BOR-x0-C3X" kind="show" id="Ye9-1P-i4K"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="HK7-GS-rt4" id="Zvn-Lz-sXd"/>
-                                    <outlet property="delegate" destination="HK7-GS-rt4" id="vs4-B3-RLW"/>
+                                    <outlet property="delegate" destination="HK7-GS-rt4" id="Arp-Rn-l9r"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Acf-lF-lHE" firstAttribute="bottom" secondItem="HBc-Lh-kPH" secondAttribute="bottom" id="1Ml-7w-5P9"/>
+                            <constraint firstItem="Lu5-3d-LZf" firstAttribute="centerX" secondItem="yfs-ah-FqF" secondAttribute="centerX" id="3bq-Q4-bva"/>
                             <constraint firstItem="Acf-lF-lHE" firstAttribute="leading" secondItem="HBc-Lh-kPH" secondAttribute="leading" id="F6Q-Oa-fG0"/>
                             <constraint firstItem="Acf-lF-lHE" firstAttribute="top" secondItem="yfs-ah-FqF" secondAttribute="top" id="FBU-CK-5Lb"/>
                             <constraint firstItem="Acf-lF-lHE" firstAttribute="trailing" secondItem="HBc-Lh-kPH" secondAttribute="trailing" id="SAH-mx-jPS"/>
+                            <constraint firstItem="Lu5-3d-LZf" firstAttribute="centerY" secondItem="yfs-ah-FqF" secondAttribute="centerY" id="l3N-qa-DtO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HBc-Lh-kPH"/>
                     </view>
@@ -305,6 +313,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="26b-sg-g6c"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="Lu5-3d-LZf" id="TcB-lo-dbr"/>
                         <outlet property="listRecipesTableView" destination="Acf-lF-lHE" id="wG9-Ua-1GO"/>
                     </connections>
                 </viewController>
@@ -393,7 +402,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Favorite recipe cell" rowHeight="120" id="jHJ-SR-nkk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteRecipeCell" rowHeight="120" id="jHJ-SR-nkk">
                                         <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jHJ-SR-nkk" id="tng-lw-oDd">
@@ -401,19 +410,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RecipeStandardImage" translatesAutoresizingMaskIntoConstraints="NO" id="sRC-2U-ep0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="119.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoB-QX-sMc">
-                                                    <rect key="frame" x="15" y="88" width="384" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoB-QX-sMc">
+                                                    <rect key="frame" x="15" y="88" width="345" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="r3T-WJ-Hl0"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDP-g0-bpW">
-                                                    <rect key="frame" x="15" y="59" width="384" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDP-g0-bpW">
+                                                    <rect key="frame" x="15" y="59" width="345" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="QNd-GL-Thw"/>
                                                     </constraints>
