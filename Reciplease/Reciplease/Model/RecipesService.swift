@@ -19,9 +19,10 @@ class RecipesService {
     }
     
     static func getRecipes(callback: @escaping (Bool, RecipesFound?) -> Void) {
-        Alamofire.request("http://api.yummly.com/v1/api/recipes?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e&requirePictures=true", method: .get, parameters: ["q": "\(ingredients.name)"])
+        Alamofire.request("http://api.yummly.com/v1/api/recipes?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e&requirePictures=true",
+                          method: .get, parameters: ["q": "\(ingredients.name)"])
             .validate(statusCode: 200..<300)
-            .responseJSON { (response) in
+            .responseData { (response) in
                 switch response.result {
                 case .success:
                     let json = try? JSON(data: response.data!)
@@ -30,12 +31,27 @@ class RecipesService {
                         return
                     }
                     for (index, _) in recipes.enumerated() {
-                        guard let recipeName = json?["matches"][index]["recipeName"].description, let ingredients = json?["matches"][index]["ingredients"].description else {
-                            return
+                        guard let recipeName = json?["matches"][index]["recipeName"].description, let ingredients = json?["matches"][index]["ingredients"].description,
+                            let totalTimeInSeconds = json?["matches"][index]["totalTimeInSeconds"].intValue, let rating = json?["matches"][index]["rating"].description,
+                            let recipeImageUrl = json?["matches"][index]["imageUrlsBySize"]["90"].description else {
+                                return
                         }
-                        let onlyIngredients = ingredients.replacingOccurrences(of: "[\n  \"", with: "").replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "\n ", with: "").replacingOccurrences(of: "\n]", with: "")
-                        let recipesFound = RecipesFound(name: recipeName, ingredients: onlyIngredients)
-                        callback(true, recipesFound)
+                        
+                        let onlyIngredients = ingredients.replacingOccurrences(of: "[\n  \"", with: "").replacingOccurrences(of: "\"", with: "")
+                            .replacingOccurrences(of: "\n ", with: "").replacingOccurrences(of: "\n]", with: "")
+                        let totalTimeInMinutes = String(totalTimeInSeconds/60)
+                        
+                        Alamofire.request(recipeImageUrl, method: .get)
+                            .validate()
+                            .responseData(completionHandler: { (responseData) in
+                                
+                                guard let recipeImage = UIImage(data: responseData.data!) else {
+                                    return
+                                }
+                                let recipesFound = RecipesFound(name: recipeName, ingredients: onlyIngredients, totalTime: totalTimeInMinutes, rating: rating, recipeImage: recipeImage)
+                                print(recipesFound)
+                                callback(true, recipesFound)
+                            })
                     }
                 case .failure:
                     callback(false, nil)

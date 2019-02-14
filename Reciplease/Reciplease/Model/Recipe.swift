@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 protocol Recipe {
     var name: String { get }
     var ingredients: String { get }
+    var totalTime: String { get }
+    var rating: String { get }
+    var recipeImage: UIImage { get }
 }

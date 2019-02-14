@@ -9,5 +9,5 @@
 import Foundation
 
 struct Ingredients {
-    var name = "Lemon+eggs"
+    var name = String()
 }

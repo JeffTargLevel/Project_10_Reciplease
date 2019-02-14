@@ -52,7 +52,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             return UITableViewCell()
         }
         let recipe = RecipesService.recipes[indexPath.row]
-        cell.configure(with: #imageLiteral(resourceName: "RecipeStandardImage"), recipeTitle: recipe.name, recipeDetail: recipe.ingredients)
+        cell.configure(with: recipe.recipeImage, recipeTitle: recipe.name, recipeDetail: recipe.ingredients, totalTime: recipe.totalTime, rating: recipe.rating)
         return cell
     }
     

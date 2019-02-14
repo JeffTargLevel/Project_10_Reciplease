@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 struct FavoritesRecipes: Recipe {
     var name: String
     var ingredients: String
+    var totalTime: String
+    var rating: String
+    var recipeImage: UIImage
 }

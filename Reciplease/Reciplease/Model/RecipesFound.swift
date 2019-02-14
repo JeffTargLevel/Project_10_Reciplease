@@ -7,10 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 struct RecipesFound: Recipe {
     var name: String
     var ingredients: String
+    var totalTime: String
+    var rating: String
+    var recipeImage: UIImage
 }
 
 

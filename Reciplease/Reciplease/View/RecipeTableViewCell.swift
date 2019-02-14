@@ -13,10 +13,12 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var RecipeImageView: UIImageView!
     @IBOutlet weak var RecipeTitleLabel: UILabel!
     @IBOutlet weak var RecipeDetailLabel: UILabel!
+    @IBOutlet weak var totalTimeAndRatingRecipeLabel: UILabel!
     
-    func configure(with image: UIImage, recipeTitle: String, recipeDetail: String) {
+    func configure(with image: UIImage, recipeTitle: String, recipeDetail: String, totalTime: String, rating: String) {
         RecipeImageView.image = image
         RecipeTitleLabel.text = recipeTitle
         RecipeDetailLabel.text = recipeDetail
+        totalTimeAndRatingRecipeLabel.text = totalTime + " " + "M" + "\n" + rating + " " + "🙂"
     }
 }
