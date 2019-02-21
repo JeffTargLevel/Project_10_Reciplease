@@ -13,25 +13,30 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var listRecipesTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var recipesFound: RecipesFound?
+    private var recipe: Recipe?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private var displayRecipeImage: UIImage?
+    private var displayRecipeTitle:String?
+    private var displayRecipeDetail: String?
+    private var displayRecipeTotalTimeAndRating: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         updateRequest()
     }
     
-    func toggleActivityIndicator(shown: Bool) {
+    private func toggleActivityIndicator(shown: Bool) {
         listRecipesTableView.isHidden = shown
         activityIndicator.isHidden = !shown
     }
     
     private func updateRequest() {
         toggleActivityIndicator(shown: true)
-        RecipesService.getRecipes { (success, recipesFound) in
+        RecipesService.getRecipes { (success, recipe) in
             self.toggleActivityIndicator(shown: false)
-            if success, let recipesFound = recipesFound {
-                self.recipesFound = recipesFound
-                RecipesService.add(recipe: recipesFound)
+            if success, let recipe = recipe {
+                self.recipe = recipe
+                RecipesService.add(recipe: recipe)
                 self.listRecipesTableView.reloadData()
             } else {
                 self.presentAlert()
@@ -56,7 +61,52 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You selected cell #\(indexPath.row)!")
+    
+        guard let indexPath = tableView.indexPathForSelectedRow,
+            let currentCell = tableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {
+                return 
+        }
+        
+        displayRecipeImage = currentCell.recipeImageView.image
+        displayRecipeTitle = currentCell.recipeTitleLabel.text
+        displayRecipeDetail = currentCell.recipeDetailLabel.text
+        displayRecipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
+    
+    
+    performSegue(withIdentifier: "DisplayRecipe", sender: self)
+    
+    
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        guard segue.identifier == "DisplayRecipe" else {
+            return
+        }
+            
+        guard let viewController = segue.destination as? RecipeDetailsViewController else {
+            return
+        }
+            viewController.displayRecipeImage = displayRecipeImage
+            
+            viewController.displayRecipeTitle = displayRecipeTitle
+            viewController.displayRecipeDetail = displayRecipeDetail
+            viewController.displayTotalTimeAndRatingRecipe = displayRecipeTotalTimeAndRating
+        
+        
+        print("hello")
+       
+    }
+    
+    private func removeTableView() {
+        RecipesService.recipes.removeAll()
+        listRecipesTableView.reloadData()
+    }
+    
     private func presentAlert() {
         presentAlert(withTitle: "Error", message: "Search failed")
     }
+    
+    
 }

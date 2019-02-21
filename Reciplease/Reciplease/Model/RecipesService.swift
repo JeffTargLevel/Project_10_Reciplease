@@ -8,7 +8,6 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
 
 class RecipesService {
     static var ingredients = Ingredients()
@@ -18,44 +17,55 @@ class RecipesService {
         RecipesService.recipes.append(recipe)
     }
     
-    static func getRecipes(callback: @escaping (Bool, RecipesFound?) -> Void) {
+    static func getRecipes(callback: @escaping (Bool, Recipe?) -> Void) {
         Alamofire.request("http://api.yummly.com/v1/api/recipes?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e&requirePictures=true",
                           method: .get, parameters: ["q": "\(ingredients.name)"])
             .validate(statusCode: 200..<300)
             .responseData { (response) in
                 switch response.result {
-                case .success:
-                    let json = try? JSON(data: response.data!)
+                case .success(let data):
                     
-                    guard let recipes = json?["matches"] else {
+                    let responseJSON = try? JSONDecoder().decode(YummlyApiResponse.self, from: data)
+                    
+                    
+                    guard let recipes = responseJSON?.matches else {
                         return
                     }
+                    
+                    print(recipes.count)
+                    
+                    
                     for (index, _) in recipes.enumerated() {
-                        guard let recipeName = json?["matches"][index]["recipeName"].description, let ingredients = json?["matches"][index]["ingredients"].description,
-                            let totalTimeInSeconds = json?["matches"][index]["totalTimeInSeconds"].intValue, let rating = json?["matches"][index]["rating"].description,
-                            let recipeImageUrl = json?["matches"][index]["imageUrlsBySize"]["90"].description else {
+                        print(index)
+                        guard let recipeImageUrl = responseJSON?.matches[index].imageUrlsBySize.the90, let ingredients = responseJSON?.matches[index].ingredients,
+                            let recipeName = responseJSON?.matches[index].recipeName, let totalTimeInSeconds = responseJSON?.matches[index].totalTimeInSeconds,
+                            let rating = responseJSON?.matches[index].rating else {
                                 return
                         }
+                       
+                        let onlyIngredients = ingredients.joined(separator: ",")
+                        let totalTimeInMinutes = totalTimeInSeconds/60
                         
-                        let onlyIngredients = ingredients.replacingOccurrences(of: "[\n  \"", with: "").replacingOccurrences(of: "\"", with: "")
-                            .replacingOccurrences(of: "\n ", with: "").replacingOccurrences(of: "\n]", with: "")
-                        let totalTimeInMinutes = String(totalTimeInSeconds/60)
-                        
-                        Alamofire.request(recipeImageUrl, method: .get)
+                       Alamofire.request(recipeImageUrl, method: .get)
                             .validate()
                             .responseData(completionHandler: { (responseData) in
                                 
                                 guard let recipeImage = UIImage(data: responseData.data!) else {
                                     return
                                 }
-                                let recipesFound = RecipesFound(name: recipeName, ingredients: onlyIngredients, totalTime: totalTimeInMinutes, rating: rating, recipeImage: recipeImage)
-                                print(recipesFound)
-                                callback(true, recipesFound)
+                                
+                                let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTime: totalTimeInMinutes, rating: rating, recipeImage: recipeImage)
+                                
+                                callback(true, recipe)
                             })
+                    
                     }
+                    
                 case .failure:
                     callback(false, nil)
                 }
+                
         }
+        
     }
 }
