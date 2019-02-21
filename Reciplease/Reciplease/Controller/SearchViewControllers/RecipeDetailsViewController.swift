@@ -14,15 +14,23 @@ class RecipeDetailsViewController: UIViewController {
     @IBOutlet weak var recipeTitleLabel: UILabel!
     @IBOutlet weak var recipeDetailTextView: UITextView!
     @IBOutlet weak var totalTimeAndRatingRecipeLabel: UILabel!
+    @IBOutlet weak var dissmissButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     
-    private var displayRecipeImage: UIImage?
-    private var displayRecipeTitle: String?
-    private var displayRecipeDetail: String?
-    private var displayTotalTimeAndRatingRecipe: String?
+    var displayRecipeImage: UIImage?
+    var displayRecipeTitle: String?
+    var displayRecipeDetail: String?
+    var displayTotalTimeAndRatingRecipe: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         displayRecipe()
+    }
+    
+    private func transformCircleButton(_ button: UIButton) {
+        button.frame = CGRect(x: 160, y: 100, width: 50, height: 50)
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
     }
     
     private func displayRecipe() {
@@ -31,10 +39,19 @@ class RecipeDetailsViewController: UIViewController {
         }
         recipeTitleLabel.text = title
         recipeImageView.image = image
-        recipeDetailTextView.text = detail
+        recipeDetailTextView.text = "- " + detail.replacingOccurrences(of: ",", with: "\n\n- ")
         totalTimeAndRatingRecipeLabel.text = totalTimeAndRating
         totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
+        transformCircleButton(dissmissButton)
+        transformCircleButton(favoriteButton)
     }
+    
+    @IBAction func dissmiss() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
 }
 
 

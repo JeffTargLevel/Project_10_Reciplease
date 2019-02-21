@@ -27,13 +27,9 @@ class RecipesService {
                     
                     let responseJSON = try? JSONDecoder().decode(YummlyApiResponse.self, from: data)
                     
-                    
                     guard let recipes = responseJSON?.matches else {
                         return
                     }
-                    
-                    print(recipes.count)
-                    
                     
                     for (index, _) in recipes.enumerated() {
                         print(index)
@@ -42,30 +38,33 @@ class RecipesService {
                             let rating = responseJSON?.matches[index].rating else {
                                 return
                         }
-                       
+                        
                         let onlyIngredients = ingredients.joined(separator: ",")
                         let totalTimeInMinutes = totalTimeInSeconds/60
                         
-                       Alamofire.request(recipeImageUrl, method: .get)
-                            .validate()
-                            .responseData(completionHandler: { (responseData) in
-                                
-                                guard let recipeImage = UIImage(data: responseData.data!) else {
-                                    return
-                                }
-                                
+                        getRecipeImage(url: recipeImageUrl) { (recipeImage) in
+                            guard let recipeImage = recipeImage else {
+                                return
+                            }
                                 let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTime: totalTimeInMinutes, rating: rating, recipeImage: recipeImage)
-                                
                                 callback(true, recipe)
-                            })
-                    
+                            }
                     }
-                    
                 case .failure:
                     callback(false, nil)
                 }
-                
         }
-        
+    }
+    
+    static private func getRecipeImage(url: String, completionHandler: @escaping ((UIImage?) -> Void)) {
+        Alamofire.request(url, method: .get)
+            .validate()
+            .responseData(completionHandler: { (responseData) in
+                
+                guard let recipeImage = UIImage(data: responseData.data!) else {
+                    return
+                }
+             completionHandler(recipeImage)
+            })
     }
 }
