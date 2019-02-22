@@ -16,8 +16,8 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     private var recipe: Recipe?
     
     private var displayRecipeImage: UIImage?
-    private var displayRecipeTitle:String?
-    private var displayRecipeDetail: String?
+    private var displayRecipeName:String?
+    private var displayRecipeIngredients: String?
     private var displayRecipeTotalTimeAndRating: String?
     
     override func viewDidLoad() {
@@ -31,6 +31,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func updateRequest() {
+        RecipesService.removeAllRecipes()
         toggleActivityIndicator(shown: true)
         RecipesService.getRecipes { (success, recipe) in
             self.toggleActivityIndicator(shown: false)
@@ -57,7 +58,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             return UITableViewCell()
         }
         let recipe = RecipesService.recipes[indexPath.row]
-        cell.configure(with: recipe.recipeImage, recipeTitle: recipe.name, recipeDetail: recipe.ingredients, totalTime: recipe.totalTime, rating: recipe.rating)
+        cell.configure(with: recipe.recipeImage, recipeTitle: recipe.name, recipeDetail: recipe.ingredients, totalTimeAndRating: recipe.totalTimeAndRating)
         return cell
     }
     
@@ -70,8 +71,8 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         displayRecipeImage = currentCell.recipeImageView.image
-        displayRecipeTitle = currentCell.recipeTitleLabel.text
-        displayRecipeDetail = currentCell.recipeDetailLabel.text
+        displayRecipeName = currentCell.recipeTitleLabel.text
+        displayRecipeIngredients = currentCell.recipeDetailLabel.text
         displayRecipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
     
     
@@ -90,18 +91,13 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         }
             viewController.displayRecipeImage = displayRecipeImage
             
-            viewController.displayRecipeTitle = displayRecipeTitle
-            viewController.displayRecipeDetail = displayRecipeDetail
-            viewController.displayTotalTimeAndRatingRecipe = displayRecipeTotalTimeAndRating
+            viewController.displayRecipeName = displayRecipeName
+            viewController.displayRecipeIngredients = displayRecipeIngredients
+            viewController.displayRecipeTotalTimeAndRating = displayRecipeTotalTimeAndRating
         
         
         print("hello")
        
-    }
-    
-    private func removeTableView() {
-        RecipesService.recipes.removeAll()
-        listRecipesTableView.reloadData()
     }
     
     private func presentAlert() {

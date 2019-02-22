@@ -11,16 +11,16 @@ import UIKit
 class RecipeDetailsViewController: UIViewController {
     
     @IBOutlet weak var recipeImageView: UIImageView!
-    @IBOutlet weak var recipeTitleLabel: UILabel!
-    @IBOutlet weak var recipeDetailTextView: UITextView!
-    @IBOutlet weak var totalTimeAndRatingRecipeLabel: UILabel!
+    @IBOutlet weak var recipeNameLabel: UILabel!
+    @IBOutlet weak var recipeIngredientsTextView: UITextView!
+    @IBOutlet weak var recipeTotalTimeAndRatingLabel: UILabel!
     @IBOutlet weak var dissmissButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
     var displayRecipeImage: UIImage?
-    var displayRecipeTitle: String?
-    var displayRecipeDetail: String?
-    var displayTotalTimeAndRatingRecipe: String?
+    var displayRecipeName: String?
+    var displayRecipeIngredients: String?
+    var displayRecipeTotalTimeAndRating: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,23 +34,31 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func displayRecipe() {
-        guard let title = displayRecipeTitle, let image = displayRecipeImage, let detail = displayRecipeDetail, let totalTimeAndRating = displayTotalTimeAndRatingRecipe  else {
+        guard let name = displayRecipeName, let image = displayRecipeImage, let ingredients = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {
             return
         }
-        recipeTitleLabel.text = title
+        recipeNameLabel.text = name
         recipeImageView.image = image
-        recipeDetailTextView.text = "- " + detail.replacingOccurrences(of: ",", with: "\n\n- ")
-        totalTimeAndRatingRecipeLabel.text = totalTimeAndRating
-        totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
+        recipeIngredientsTextView.text = "- " + ingredients.replacingOccurrences(of: ",", with: "\n\n- ")
+        recipeTotalTimeAndRatingLabel.text = totalTimeAndRating
+        recipeTotalTimeAndRatingLabel.layer.cornerRadius = 20
         transformCircleButton(dissmissButton)
         transformCircleButton(favoriteButton)
     }
     
-    @IBAction func dissmiss() {
-        dismiss(animated: true, completion: nil)
+    func saveFavoriteRecipe() {
+        guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text else {
+            return
+        }
+        ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n- ", with: ",").replacingOccurrences(of: "- ", with: "")
+        
+        let favoriteRecipe = Recipe.init(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, recipeImage: image)
+        RecipesService.addFavorite(recipe: favoriteRecipe)
     }
     
-    
+    @IBAction func tapFavoriteButton() {
+        saveFavoriteRecipe()
+    }
     
 }
 

@@ -12,8 +12,7 @@ import UIKit
 struct Recipe {
     var name: String
     var ingredients: String
-    var totalTime: Int
-    var rating: Int
+    var totalTimeAndRating: String
     var recipeImage: UIImage
 }
 

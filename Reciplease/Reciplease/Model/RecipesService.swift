@@ -12,9 +12,18 @@ import Alamofire
 class RecipesService {
     static var ingredients = Ingredients()
     static  var recipes = [Recipe]()
+    static var favoritesRecipes = [Recipe]()
     
     static func add(recipe: Recipe) {
         RecipesService.recipes.append(recipe)
+    }
+    
+    static func addFavorite(recipe: Recipe) {
+        RecipesService.favoritesRecipes.append(recipe)
+    }
+    
+    static func removeAllRecipes() {
+        RecipesService.recipes.removeAll()
     }
     
     static func getRecipes(callback: @escaping (Bool, Recipe?) -> Void) {
@@ -41,12 +50,13 @@ class RecipesService {
                         
                         let onlyIngredients = ingredients.joined(separator: ",")
                         let totalTimeInMinutes = totalTimeInSeconds/60
+                        let totalTimeAndRating = String("\(totalTimeInMinutes)" + " " + "M" + "\n" + "\(rating)" + " " + "🙂")
                         
                         getRecipeImage(url: recipeImageUrl) { (recipeImage) in
                             guard let recipeImage = recipeImage else {
                                 return
                             }
-                                let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTime: totalTimeInMinutes, rating: rating, recipeImage: recipeImage)
+                            let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTimeAndRating: totalTimeAndRating, recipeImage: recipeImage)
                                 callback(true, recipe)
                             }
                     }

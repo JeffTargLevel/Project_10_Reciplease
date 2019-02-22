@@ -67,4 +67,6 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func tapSearchForRecipesButton(_ sender: Any) {
     }
+    
+    @IBAction func unwindAddIngredients(segue: UIStoryboardSegue) {}
 }
