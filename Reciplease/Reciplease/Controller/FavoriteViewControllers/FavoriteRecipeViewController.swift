@@ -21,6 +21,7 @@ class FavoriteRecipeViewController: UIViewController {
     var displayRecipeName: String?
     var displayRecipeIngredients: String?
     var displayRecipeTotalTimeAndRating: String?
+    var indexFavoriteRecipe: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +47,20 @@ class FavoriteRecipeViewController: UIViewController {
         transformCircleButton(deleteFavoriteRecipeButton)
     }
     
+    private func removeFavoriteRecipe() {
+        guard let indexFavoriteRecipe = indexFavoriteRecipe else {
+            return
+        }
+        RecipesService.removeFavoriteRecipe(at: indexFavoriteRecipe)
+    }
+    
     @IBAction func tapDissmissButton() {
         navigationController?.popViewController(animated: true)
     }
-
+    
+    @IBAction func tapRemoveFavoriteRecipe() {
+        removeFavoriteRecipe()
+        navigationController?.popViewController(animated: true)
+    }
 }
+

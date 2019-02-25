@@ -62,25 +62,18 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You selected cell #\(indexPath.row)!")
-    
-        guard let indexPath = tableView.indexPathForSelectedRow,
-            let currentCell = tableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {
-                return 
+    private func configureCurrentCell() {
+        guard let indexPath = listRecipesTableView.indexPathForSelectedRow, let currentCell = listRecipesTableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {
+            return
         }
-        
         displayRecipeImage = currentCell.recipeImageView.image
         displayRecipeName = currentCell.recipeTitleLabel.text
         displayRecipeIngredients = currentCell.recipeDetailLabel.text
         displayRecipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
-    
-    
-    performSegue(withIdentifier: "DisplayRecipe", sender: self)
-    
-    
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        configureCurrentCell()
     
         guard segue.identifier == "DisplayRecipe" else {
             return
@@ -90,14 +83,9 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             return
         }
             viewController.displayRecipeImage = displayRecipeImage
-            
             viewController.displayRecipeName = displayRecipeName
             viewController.displayRecipeIngredients = displayRecipeIngredients
             viewController.displayRecipeTotalTimeAndRating = displayRecipeTotalTimeAndRating
-        
-        
-        print("hello")
-       
     }
     
     private func presentAlert() {

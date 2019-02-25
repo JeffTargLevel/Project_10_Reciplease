@@ -22,9 +22,27 @@ class RecipeDetailsViewController: UIViewController {
     var displayRecipeIngredients: String?
     var displayRecipeTotalTimeAndRating: String?
     
+    private var isNotAlreadyAfavorite: Bool {
+        for (_, recipe) in RecipesService.favoritesRecipes.enumerated() {
+            guard recipe.name != displayRecipeName else {
+                return false
+            }
+        }
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         displayRecipe()
+        toogleFavoriteButton()
+    }
+    
+    private func toogleFavoriteButton() {
+        guard isNotAlreadyAfavorite else {
+            favoriteButton.isSelected = true
+            return
+        }
+        favoriteButton.isSelected = false
     }
     
     private func transformCircleButton(_ button: UIButton) {
@@ -46,20 +64,26 @@ class RecipeDetailsViewController: UIViewController {
         transformCircleButton(favoriteButton)
     }
     
-    func saveFavoriteRecipe() {
+    private func saveFavoriteRecipe() {
         guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text else {
             return
         }
         ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n- ", with: ",").replacingOccurrences(of: "- ", with: "")
-        
-        let favoriteRecipe = Recipe.init(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, recipeImage: image)
+        let favoriteRecipe = Recipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, recipeImage: image)
+        guard isNotAlreadyAfavorite else {
+            return
+        }
         RecipesService.addFavorite(recipe: favoriteRecipe)
+    }
+    
+    private func removeFavoriteRecipe() {
+        guard !isNotAlreadyAfavorite else {
+            return
+        }
     }
     
     @IBAction func tapFavoriteButton() {
         saveFavoriteRecipe()
+        toogleFavoriteButton()
     }
-    
 }
-
-

@@ -16,6 +16,7 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     private var displayRecipeName:String?
     private var displayRecipeIngredients: String?
     private var displayRecipeTotalTimeAndRating: String?
+    private var indexFavoriteRecipe: Int?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -39,49 +40,42 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You selected cell #\(indexPath.row)!")
-        
-        guard let indexPath = tableView.indexPathForSelectedRow,
-            let currentCell = tableView.cellForRow(at: indexPath) as? FavoriteRecipeTableViewCell else {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else {
+            return
+        }
+        RecipesService.removeFavoriteRecipe(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func configureCurrentCell() {
+        guard let indexPath = listFavoritesRecipesTableView.indexPathForSelectedRow,
+            let currentCell = listFavoritesRecipesTableView.cellForRow(at: indexPath) as? FavoriteRecipeTableViewCell else {
                 return
         }
-        
         displayRecipeImage = currentCell.recipeImageView.image
         displayRecipeName = currentCell.recipeTitleLabel.text
         displayRecipeIngredients = currentCell.recipeDetailLabel.text
         displayRecipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
-        
-        
-        performSegue(withIdentifier: "DisplayFavoriteRecipe", sender: self)
-        
-        
+        indexFavoriteRecipe = indexPath.row
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        configureCurrentCell()
         guard segue.identifier == "DisplayFavoriteRecipe" else {
             return
         }
-        
         guard let viewController = segue.destination as? FavoriteRecipeViewController else {
             return
         }
         viewController.displayRecipeImage = displayRecipeImage
-        
         viewController.displayRecipeName = displayRecipeName
         viewController.displayRecipeIngredients = displayRecipeIngredients
         viewController.displayRecipeTotalTimeAndRating = displayRecipeTotalTimeAndRating
-        
-        
-        print("hello")
-        
+        viewController.indexFavoriteRecipe = indexFavoriteRecipe
     }
     
     private func presentAlert() {
         presentAlert(withTitle: "Error", message: "Search failed")
     }
-    
-    
-    
-    
 }

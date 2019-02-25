@@ -22,6 +22,10 @@ class RecipesService {
         RecipesService.favoritesRecipes.append(recipe)
     }
     
+    static func removeFavoriteRecipe(at index: Int) {
+        RecipesService.favoritesRecipes.remove(at: index)
+    }
+    
     static func removeAllRecipes() {
         RecipesService.recipes.removeAll()
     }
@@ -41,7 +45,6 @@ class RecipesService {
                     }
                     
                     for (index, _) in recipes.enumerated() {
-                        print(index)
                         guard let recipeImageUrl = responseJSON?.matches[index].imageUrlsBySize.the90, let ingredients = responseJSON?.matches[index].ingredients,
                             let recipeName = responseJSON?.matches[index].recipeName, let totalTimeInSeconds = responseJSON?.matches[index].totalTimeInSeconds,
                             let rating = responseJSON?.matches[index].rating else {
