@@ -35,7 +35,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="CA1-dW-J9o">
                                         <rect key="frame" x="0.0" y="64" width="414" height="68"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Lemon, Cheese, Sausages..." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eul-3l-mbg">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter ingredients" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eul-3l-mbg">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="68"/>
                                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -351,7 +351,7 @@
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ug6-n5-oLu">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ug6-n5-oLu" customClass="UnwindAddIngredientsButton" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="20" y="733" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -416,7 +416,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZ5-sz-2cF">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZ5-sz-2cF" customClass="FavoriteRecipeButton" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="334" y="733" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -427,6 +427,7 @@
                                 <state key="normal" title="+">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <state key="selected" title="-"/>
                                 <connections>
                                     <action selector="tapFavoriteButton" destination="BOR-x0-C3X" eventType="touchUpInside" id="vI6-hQ-fEx"/>
                                 </connections>
@@ -455,7 +456,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Reciplease" id="0m4-F7-fVO"/>
                     <connections>
-                        <outlet property="dissmissButton" destination="ug6-n5-oLu" id="aVf-bZ-Xf1"/>
                         <outlet property="favoriteButton" destination="FZ5-sz-2cF" id="ddg-s3-odx"/>
                         <outlet property="recipeImageView" destination="f79-qa-oMz" id="bv3-BC-MmK"/>
                         <outlet property="recipeIngredientsTextView" destination="dwp-UB-NQM" id="pl4-Sc-ick"/>
@@ -586,7 +586,7 @@
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Afq-9A-c3j">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Afq-9A-c3j" customClass="DissmissButton" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="16" y="733" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -651,7 +651,7 @@
                                     <constraint firstAttribute="bottom" secondItem="zeN-Ae-4at" secondAttribute="bottom" constant="12" id="uNh-IR-GSV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2m-qw-DlA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2m-qw-DlA" customClass="DeleteFavoriteRecipeButton" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="338" y="733" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -691,8 +691,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Reciplease" id="O7w-7l-FNN"/>
                     <connections>
-                        <outlet property="deleteFavoriteRecipeButton" destination="m2m-qw-DlA" id="RT8-eu-ngc"/>
-                        <outlet property="dissmissButton" destination="Afq-9A-c3j" id="4Sw-tT-TEf"/>
                         <outlet property="recipeDetailTextView" destination="4GJ-i1-RT4" id="TJO-JA-TF5"/>
                         <outlet property="recipeImageView" destination="Gn6-Id-hFa" id="RNU-VF-y0Z"/>
                         <outlet property="recipeTitleLabel" destination="zeN-Ae-4at" id="pqI-Mz-ana"/>

@@ -14,8 +14,6 @@ class FavoriteRecipeViewController: UIViewController {
     @IBOutlet weak var recipeTitleLabel: UILabel!
     @IBOutlet weak var recipeDetailTextView: UITextView!
     @IBOutlet weak var totalTimeAndRatingRecipeLabel: UILabel!
-    @IBOutlet weak var dissmissButton: UIButton!
-    @IBOutlet weak var deleteFavoriteRecipeButton: UIButton!
     
     var displayRecipeImage: UIImage?
     var displayRecipeName: String?
@@ -28,12 +26,6 @@ class FavoriteRecipeViewController: UIViewController {
         displayRecipe()
     }
     
-    private func transformCircleButton(_ button: UIButton) {
-        button.frame = CGRect(x: 160, y: 100, width: 50, height: 50)
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
-        button.clipsToBounds = true
-    }
-    
     private func displayRecipe() {
         guard let title = displayRecipeName, let image = displayRecipeImage, let detail = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {
             return
@@ -43,8 +35,6 @@ class FavoriteRecipeViewController: UIViewController {
         recipeDetailTextView.text = "- " + detail.replacingOccurrences(of: ",", with: "\n\n- ")
         totalTimeAndRatingRecipeLabel.text = totalTimeAndRating
         totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
-        transformCircleButton(dissmissButton)
-        transformCircleButton(deleteFavoriteRecipeButton)
     }
     
     private func removeFavoriteRecipe() {

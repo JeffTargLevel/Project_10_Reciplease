@@ -20,15 +20,17 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func addIngredients() {
-        guard let ingredient = addIngredientsTextField.text,
+        guard var ingredient = addIngredientsTextField.text,
             var listIngredients = addedIngredientsTextView.text else {
                 return
         }
         guard ingredient.count > 0 else {
             return presentAlert()
         }
-        RecipesService.ingredients.name += ingredient + "+"
-        listIngredients += "- " + ingredient + "\n"
+        ingredient = ingredient.replacingOccurrences(of: ",", with: "+")
+        RecipesService.ingredients.name += ingredient
+        ingredient = ingredient.replacingOccurrences(of: "+", with: "\n\n- ")
+        listIngredients += "- " + ingredient + "\n\n"
         addedIngredientsTextView.text = listIngredients
         addIngredientsTextField.text = ""
         showSearchRecipesButton()
@@ -54,7 +56,7 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func presentAlert() {
-        presentAlert(withTitle: "Error", message: "Enter ingredient")
+        presentAlert(withTitle: "Error", message: "Enter ingredients")
     }
     
     @IBAction func tapAddIngredientsButton(_ sender: Any) {
@@ -65,8 +67,7 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         clearListIngredients()
     }
     
-    @IBAction func tapSearchForRecipesButton(_ sender: Any) {
-    }
+    @IBAction func tapSearchForRecipesButton(_ sender: Any) {}
     
     @IBAction func unwindAddIngredients(segue: UIStoryboardSegue) {}
 }

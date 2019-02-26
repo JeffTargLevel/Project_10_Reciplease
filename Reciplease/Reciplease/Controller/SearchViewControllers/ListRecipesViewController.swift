@@ -13,8 +13,6 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var listRecipesTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    private var recipe: Recipe?
-    
     private var displayRecipeImage: UIImage?
     private var displayRecipeName:String?
     private var displayRecipeIngredients: String?
@@ -36,7 +34,6 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         RecipesService.getRecipes { (success, recipe) in
             self.toggleActivityIndicator(shown: false)
             if success, let recipe = recipe {
-                self.recipe = recipe
                 RecipesService.add(recipe: recipe)
                 self.listRecipesTableView.reloadData()
             } else {

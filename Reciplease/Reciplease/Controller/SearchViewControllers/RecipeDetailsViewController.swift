@@ -14,7 +14,6 @@ class RecipeDetailsViewController: UIViewController {
     @IBOutlet weak var recipeNameLabel: UILabel!
     @IBOutlet weak var recipeIngredientsTextView: UITextView!
     @IBOutlet weak var recipeTotalTimeAndRatingLabel: UILabel!
-    @IBOutlet weak var dissmissButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
     var displayRecipeImage: UIImage?
@@ -31,8 +30,8 @@ class RecipeDetailsViewController: UIViewController {
         return true
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         displayRecipe()
         toogleFavoriteButton()
     }
@@ -45,12 +44,6 @@ class RecipeDetailsViewController: UIViewController {
         favoriteButton.isSelected = false
     }
     
-    private func transformCircleButton(_ button: UIButton) {
-        button.frame = CGRect(x: 160, y: 100, width: 50, height: 50)
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
-        button.clipsToBounds = true
-    }
-    
     private func displayRecipe() {
         guard let name = displayRecipeName, let image = displayRecipeImage, let ingredients = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {
             return
@@ -60,8 +53,6 @@ class RecipeDetailsViewController: UIViewController {
         recipeIngredientsTextView.text = "- " + ingredients.replacingOccurrences(of: ",", with: "\n\n- ")
         recipeTotalTimeAndRatingLabel.text = totalTimeAndRating
         recipeTotalTimeAndRatingLabel.layer.cornerRadius = 20
-        transformCircleButton(dissmissButton)
-        transformCircleButton(favoriteButton)
     }
     
     private func saveFavoriteRecipe() {
