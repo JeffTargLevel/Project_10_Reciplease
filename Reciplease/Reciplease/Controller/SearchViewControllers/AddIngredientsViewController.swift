@@ -21,9 +21,8 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     
     private func addIngredients() {
         guard var ingredient = addIngredientsTextField.text,
-            var listIngredients = addedIngredientsTextView.text else {
-                return
-        }
+            var listIngredients = addedIngredientsTextView.text else {return}
+        
         guard ingredient.count > 0 else {
             return presentAlert()
         }

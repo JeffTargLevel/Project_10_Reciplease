@@ -22,7 +22,7 @@ class RecipeDetailsViewController: UIViewController {
     var displayRecipeTotalTimeAndRating: String?
     
     private var isNotAlreadyAfavorite: Bool {
-        for (_, recipe) in RecipesService.favoritesRecipes.enumerated() {
+        for (_, recipe) in FavoriteRecipe.all.enumerated() {
             guard recipe.name != displayRecipeName else {
                 return false
             }
@@ -45,9 +45,8 @@ class RecipeDetailsViewController: UIViewController {
     }
     
     private func displayRecipe() {
-        guard let name = displayRecipeName, let image = displayRecipeImage, let ingredients = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {
-            return
-        }
+        guard let name = displayRecipeName, let image = displayRecipeImage, let ingredients = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {return}
+        
         recipeNameLabel.text = name
         recipeImageView.image = image
         recipeIngredientsTextView.text = "- " + ingredients.replacingOccurrences(of: ",", with: "\n\n- ")
@@ -55,26 +54,17 @@ class RecipeDetailsViewController: UIViewController {
         recipeTotalTimeAndRatingLabel.layer.cornerRadius = 20
     }
     
-    private func saveFavoriteRecipe() {
-        guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text else {
-            return
-        }
+    private func addFavoriteRecipe() {
+        guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text else {return}
+        
         ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n- ", with: ",").replacingOccurrences(of: "- ", with: "")
-        let favoriteRecipe = Recipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, recipeImage: image)
-        guard isNotAlreadyAfavorite else {
-            return
-        }
-        RecipesService.addFavorite(recipe: favoriteRecipe)
-    }
-    
-    private func removeFavoriteRecipe() {
-        guard !isNotAlreadyAfavorite else {
-            return
-        }
+        guard isNotAlreadyAfavorite else {return}
+        
+        FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image)
     }
     
     @IBAction func tapFavoriteButton() {
-        saveFavoriteRecipe()
+        addFavoriteRecipe()
         toogleFavoriteButton()
     }
 }

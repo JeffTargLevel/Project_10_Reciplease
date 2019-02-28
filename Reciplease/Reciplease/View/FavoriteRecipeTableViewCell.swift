@@ -15,8 +15,8 @@ class FavoriteRecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var recipeDetailLabel: UILabel!
     @IBOutlet weak var totalTimeAndRatingRecipeLabel: UILabel!
     
-    func configure(with image: UIImage, recipeTitle: String, recipeDetail: String, totalTimeAndRating: String) {
-        recipeImageView.image = image
+    func configure(with image: Data, recipeTitle: String, recipeDetail: String, totalTimeAndRating: String) {
+        recipeImageView.image = UIImage(data: image)
         recipeTitleLabel.text = recipeTitle
         recipeDetailLabel.text = recipeDetail
         totalTimeAndRatingRecipeLabel.text = totalTimeAndRating

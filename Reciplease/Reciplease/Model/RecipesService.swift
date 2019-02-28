@@ -12,18 +12,9 @@ import Alamofire
 class RecipesService {
     static var ingredients = Ingredients()
     static  var recipes = [Recipe]()
-    static var favoritesRecipes = [Recipe]()
     
     static func add(recipe: Recipe) {
         RecipesService.recipes.append(recipe)
-    }
-    
-    static func addFavorite(recipe: Recipe) {
-        RecipesService.favoritesRecipes.append(recipe)
-    }
-    
-    static func removeFavoriteRecipe(at index: Int) {
-        RecipesService.favoritesRecipes.remove(at: index)
     }
     
     static func removeAllRecipes() {
@@ -40,25 +31,20 @@ class RecipesService {
                     
                     let responseJSON = try? JSONDecoder().decode(YummlyApiResponse.self, from: data)
                     
-                    guard let recipes = responseJSON?.matches else {
-                        return
-                    }
+                    guard let recipes = responseJSON?.matches else {return}
                     
                     for (index, _) in recipes.enumerated() {
                         guard let recipeImageUrl = responseJSON?.matches[index].imageUrlsBySize.the90, let ingredients = responseJSON?.matches[index].ingredients,
                             let recipeName = responseJSON?.matches[index].recipeName, let totalTimeInSeconds = responseJSON?.matches[index].totalTimeInSeconds,
-                            let rating = responseJSON?.matches[index].rating else {
-                                return
-                        }
+                            let rating = responseJSON?.matches[index].rating else {return}
                         
                         let onlyIngredients = ingredients.joined(separator: ",")
                         let totalTimeInMinutes = totalTimeInSeconds/60
                         let totalTimeAndRating = String("\(totalTimeInMinutes)" + " " + "M" + "\n" + "\(rating)" + " " + "🙂")
                         
                         getRecipeImage(url: recipeImageUrl) { (recipeImage) in
-                            guard let recipeImage = recipeImage else {
-                                return
-                            }
+                            guard let recipeImage = recipeImage else {return}
+                            
                             let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTimeAndRating: totalTimeAndRating, recipeImage: recipeImage)
                                 callback(true, recipe)
                             }
@@ -73,10 +59,8 @@ class RecipesService {
         Alamofire.request(url, method: .get)
             .validate()
             .responseData(completionHandler: { (responseData) in
+                guard let recipeImage = UIImage(data: responseData.data!) else {return}
                 
-                guard let recipeImage = UIImage(data: responseData.data!) else {
-                    return
-                }
              completionHandler(recipeImage)
             })
     }

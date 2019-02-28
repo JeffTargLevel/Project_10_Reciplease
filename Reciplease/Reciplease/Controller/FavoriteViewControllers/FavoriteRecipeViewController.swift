@@ -27,9 +27,8 @@ class FavoriteRecipeViewController: UIViewController {
     }
     
     private func displayRecipe() {
-        guard let title = displayRecipeName, let image = displayRecipeImage, let detail = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {
-            return
-        }
+        guard let title = displayRecipeName, let image = displayRecipeImage, let detail = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {return}
+        
         recipeTitleLabel.text = title
         recipeImageView.image = image
         recipeDetailTextView.text = "- " + detail.replacingOccurrences(of: ",", with: "\n\n- ")
@@ -38,10 +37,9 @@ class FavoriteRecipeViewController: UIViewController {
     }
     
     private func removeFavoriteRecipe() {
-        guard let indexFavoriteRecipe = indexFavoriteRecipe else {
-            return
-        }
-        RecipesService.removeFavoriteRecipe(at: indexFavoriteRecipe)
+        guard let indexFavoriteRecipe = indexFavoriteRecipe else {return}
+        let favoriteRecipe = FavoriteRecipe.all[indexFavoriteRecipe]
+        FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
     }
     
     @IBAction func tapDissmissButton() {

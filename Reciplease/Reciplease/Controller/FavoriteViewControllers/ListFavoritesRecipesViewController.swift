@@ -28,15 +28,15 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RecipesService.favoritesRecipes.count
+        return FavoriteRecipe.all.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteRecipeCell", for: indexPath) as? FavoriteRecipeTableViewCell else {
             return UITableViewCell()
         }
-        let favoriteRecipe = RecipesService.favoritesRecipes[indexPath.row]
-        cell.configure(with: favoriteRecipe.recipeImage, recipeTitle: favoriteRecipe.name, recipeDetail: favoriteRecipe.ingredients, totalTimeAndRating: favoriteRecipe.totalTimeAndRating)
+        let favoriteRecipe = FavoriteRecipe.all[indexPath.row]
+        cell.configure(with: favoriteRecipe.image!, recipeTitle: favoriteRecipe.name!, recipeDetail: favoriteRecipe.ingredients!, totalTimeAndRating: favoriteRecipe.totalTimeAndRating!)
         return cell
     }
     
@@ -44,15 +44,15 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         guard editingStyle == .delete else {
             return
         }
-        RecipesService.removeFavoriteRecipe(at: indexPath.row)
+        let favoriteRecipe = FavoriteRecipe.all[indexPath.row]
+        FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     private func configureCurrentCell() {
         guard let indexPath = listFavoritesRecipesTableView.indexPathForSelectedRow,
-            let currentCell = listFavoritesRecipesTableView.cellForRow(at: indexPath) as? FavoriteRecipeTableViewCell else {
-                return
-        }
+            let currentCell = listFavoritesRecipesTableView.cellForRow(at: indexPath) as? FavoriteRecipeTableViewCell else {return}
+        
         displayRecipeImage = currentCell.recipeImageView.image
         displayRecipeName = currentCell.recipeTitleLabel.text
         displayRecipeIngredients = currentCell.recipeDetailLabel.text
@@ -62,12 +62,10 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         configureCurrentCell()
-        guard segue.identifier == "DisplayFavoriteRecipe" else {
-            return
-        }
-        guard let viewController = segue.destination as? FavoriteRecipeViewController else {
-            return
-        }
+        guard segue.identifier == "DisplayFavoriteRecipe" else {return}
+        
+        guard let viewController = segue.destination as? FavoriteRecipeViewController else {return}
+        
         viewController.displayRecipeImage = displayRecipeImage
         viewController.displayRecipeName = displayRecipeName
         viewController.displayRecipeIngredients = displayRecipeIngredients

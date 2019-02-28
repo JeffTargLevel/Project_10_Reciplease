@@ -60,9 +60,8 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func configureCurrentCell() {
-        guard let indexPath = listRecipesTableView.indexPathForSelectedRow, let currentCell = listRecipesTableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {
-            return
-        }
+        guard let indexPath = listRecipesTableView.indexPathForSelectedRow, let currentCell = listRecipesTableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {return}
+        
         displayRecipeImage = currentCell.recipeImageView.image
         displayRecipeName = currentCell.recipeTitleLabel.text
         displayRecipeIngredients = currentCell.recipeDetailLabel.text
@@ -72,13 +71,10 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         configureCurrentCell()
     
-        guard segue.identifier == "DisplayRecipe" else {
-            return
-        }
+        guard segue.identifier == "DisplayRecipe" else {return}
             
-        guard let viewController = segue.destination as? RecipeDetailsViewController else {
-            return
-        }
+        guard let viewController = segue.destination as? RecipeDetailsViewController else {return}
+        
             viewController.displayRecipeImage = displayRecipeImage
             viewController.displayRecipeName = displayRecipeName
             viewController.displayRecipeIngredients = displayRecipeIngredients
@@ -88,6 +84,4 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     private func presentAlert() {
         presentAlert(withTitle: "Error", message: "Search failed")
     }
-    
-    
 }
