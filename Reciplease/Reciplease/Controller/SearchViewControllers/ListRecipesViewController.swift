@@ -59,6 +59,13 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        UIView.animate(withDuration: 0.4) {
+            cell.transform = CGAffineTransform.identity
+        }
+    }
+    
     private func configureCurrentCell() {
         guard let indexPath = listRecipesTableView.indexPathForSelectedRow, let currentCell = listRecipesTableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {return}
         

@@ -49,6 +49,13 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        UIView.animate(withDuration: 0.4) {
+            cell.transform = CGAffineTransform.identity
+        }
+    }
+    
     private func configureCurrentCell() {
         guard let indexPath = listFavoritesRecipesTableView.indexPathForSelectedRow,
             let currentCell = listFavoritesRecipesTableView.cellForRow(at: indexPath) as? FavoriteRecipeTableViewCell else {return}
