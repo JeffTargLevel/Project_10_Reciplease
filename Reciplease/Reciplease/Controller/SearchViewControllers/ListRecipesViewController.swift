@@ -80,7 +80,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     
         guard segue.identifier == "DisplayRecipe" else {return}
             
-        guard let viewController = segue.destination as? RecipeDetailsViewController else {return}
+        guard let viewController = segue.destination as? RecipeViewController else {return}
         
             viewController.displayRecipeImage = displayRecipeImage
             viewController.displayRecipeName = displayRecipeName

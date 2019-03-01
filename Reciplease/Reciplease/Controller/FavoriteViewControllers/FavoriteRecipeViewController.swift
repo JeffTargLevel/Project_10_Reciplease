@@ -42,13 +42,15 @@ class FavoriteRecipeViewController: UIViewController {
         FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
     }
     
+    @IBAction func tapTrashFavoriteRecipeButtonItem(_ sender: Any) {
+        removeFavoriteRecipe()
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func tapDissmissButton() {
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func tapRemoveFavoriteRecipe() {
-        removeFavoriteRecipe()
-        navigationController?.popViewController(animated: true)
-    }
+    @IBAction func tapFavoriteRecipeDetailButton() {}
 }
 

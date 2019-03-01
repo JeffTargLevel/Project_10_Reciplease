@@ -1,14 +1,14 @@
 //
-//  FavoriteRecipeButton.swift
+//  DissmissRecipeDetailButton.swift
 //  Reciplease
 //
-//  Created by Jean-François Santolaria on 26/02/2019.
+//  Created by Jean-François Santolaria on 01/03/2019.
 //  Copyright © 2019 OpenClassroomsFRSantolariaJF. All rights reserved.
 //
 
 import UIKit
 
-class FavoriteRecipeButton: UIButton {
+class DissmissRecipeDetailButton: UIButton {
 
     override func awakeFromNib() {
         super.awakeFromNib()

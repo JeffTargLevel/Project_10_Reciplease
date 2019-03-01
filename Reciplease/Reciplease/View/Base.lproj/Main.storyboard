@@ -339,7 +339,7 @@
         <!--Reciplease-->
         <scene sceneID="5Un-TC-lL9">
             <objects>
-                <viewController id="BOR-x0-C3X" customClass="RecipeDetailsViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BOR-x0-C3X" customClass="RecipeViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PFQ-E2-ADw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -416,7 +416,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZ5-sz-2cF" customClass="FavoriteRecipeButton" customModule="Reciplease" customModuleProvider="target">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZ5-sz-2cF" customClass="RecipeDetailButton" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="334" y="733" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -424,12 +424,13 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="45"/>
                                 <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="+">
+                                <state key="normal" title="v">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <state key="selected" title="-"/>
                                 <connections>
-                                    <action selector="tapFavoriteButton" destination="BOR-x0-C3X" eventType="touchUpInside" id="vI6-hQ-fEx"/>
+                                    <action selector="tapFavoriteRecipeDetailButton" destination="BOR-x0-C3X" eventType="touchUpInside" id="vI6-hQ-fEx"/>
+                                    <segue destination="E6l-xs-2B3" kind="presentation" identifier="DisplayRecipeDetail" id="6Rl-3g-oOw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -454,9 +455,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HIz-hi-jph"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Reciplease" id="0m4-F7-fVO"/>
+                    <navigationItem key="navigationItem" title="Reciplease" id="0m4-F7-fVO">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="jCE-XN-vUZ">
+                            <connections>
+                                <action selector="tapAddFavoriteButtonItem:" destination="BOR-x0-C3X" id="n0N-Ga-n5U"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="favoriteButton" destination="FZ5-sz-2cF" id="ddg-s3-odx"/>
+                        <outlet property="addFavoriteButtonItem" destination="jCE-XN-vUZ" id="5Ok-aY-PT1"/>
+                        <outlet property="favoriteRecipeDetailButton" destination="FZ5-sz-2cF" id="ddg-s3-odx"/>
                         <outlet property="recipeImageView" destination="f79-qa-oMz" id="bv3-BC-MmK"/>
                         <outlet property="recipeIngredientsTextView" destination="dwp-UB-NQM" id="pl4-Sc-ick"/>
                         <outlet property="recipeNameLabel" destination="Nic-IS-9Wr" id="CVJ-0B-S4H"/>
@@ -467,6 +475,43 @@
                 <exit id="JEA-2B-e72" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2188.4057971014495" y="-397.76785714285711"/>
+        </scene>
+        <!--Recipe Detail View Controller-->
+        <scene sceneID="JMO-jC-1bZ">
+            <objects>
+                <viewController id="E6l-xs-2B3" customClass="RecipeDetailViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yRZ-DG-B0N">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kg-0r-skX" customClass="DissmissRecipeDetailButton" customModule="Reciplease" customModuleProvider="target">
+                                <rect key="frame" x="20" y="802" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="tkG-ob-gqv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="45"/>
+                                <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="x">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapDissmissButton" destination="E6l-xs-2B3" eventType="touchUpInside" id="Zk7-DR-jFh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="8kg-0r-skX" firstAttribute="bottom" secondItem="qGg-Np-3BI" secondAttribute="bottom" id="Xlj-GR-fmq"/>
+                            <constraint firstItem="8kg-0r-skX" firstAttribute="leading" secondItem="qGg-Np-3BI" secondAttribute="leading" constant="20" id="nU8-Oq-Ymt"/>
+                            <constraint firstItem="qGg-Np-3BI" firstAttribute="trailing" secondItem="8kg-0r-skX" secondAttribute="trailing" constant="334" id="sLZ-4K-3E7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qGg-Np-3BI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cNS-lO-xNA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3365" y="-399"/>
         </scene>
         <!--Reciplease-->
         <scene sceneID="ZfI-D6-VCa">
@@ -651,7 +696,7 @@
                                     <constraint firstAttribute="bottom" secondItem="zeN-Ae-4at" secondAttribute="bottom" constant="12" id="uNh-IR-GSV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2m-qw-DlA" customClass="DeleteFavoriteRecipeButton" customModule="Reciplease" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2m-qw-DlA" customClass="FavoriteRecipeDetailButton" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="338" y="733" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -659,11 +704,12 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="45"/>
                                 <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="-">
+                                <state key="normal" title="v">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="tapRemoveFavoriteRecipe" destination="kBX-dP-w73" eventType="touchUpInside" id="Mm0-Yf-oKs"/>
+                                    <action selector="tapFavoriteRecipeDetailButton" destination="kBX-dP-w73" eventType="touchUpInside" id="Mm0-Yf-oKs"/>
+                                    <segue destination="yjm-dX-2vW" kind="presentation" identifier="DisplayFavoriteRecipeDetail" id="ZBE-Gv-iee"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -689,7 +735,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="V0l-qa-yE1"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Reciplease" id="O7w-7l-FNN"/>
+                    <navigationItem key="navigationItem" title="Reciplease" id="O7w-7l-FNN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="EMW-A8-fsg">
+                            <connections>
+                                <action selector="tapTrashFavoriteRecipeButtonItem:" destination="kBX-dP-w73" id="tdf-Np-o5K"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="recipeDetailTextView" destination="4GJ-i1-RT4" id="TJO-JA-TF5"/>
                         <outlet property="recipeImageView" destination="Gn6-Id-hFa" id="RNU-VF-y0Z"/>
@@ -700,6 +752,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="84B-50-hBh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1124.6376811594205" y="411.16071428571428"/>
+        </scene>
+        <!--Favorite Recipe Detail View Controller-->
+        <scene sceneID="bLY-Jy-JJz">
+            <objects>
+                <viewController id="yjm-dX-2vW" customClass="FavoriteRecipeDetailViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ytb-g1-BHg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="NXS-Tt-UYp"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7kR-EK-FZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2332" y="411"/>
         </scene>
     </scenes>
     <resources>

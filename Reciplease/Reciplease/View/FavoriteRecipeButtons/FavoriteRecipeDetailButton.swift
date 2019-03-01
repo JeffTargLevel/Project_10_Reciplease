@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeleteFavoriteRecipeButton: UIButton {
+class FavoriteRecipeDetailButton: UIButton {
 
     override func awakeFromNib() {
         super.awakeFromNib()

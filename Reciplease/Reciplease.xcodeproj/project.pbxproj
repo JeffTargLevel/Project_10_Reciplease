@@ -24,14 +24,17 @@
 		6282E2BF22031AC800E458E6 /* AddIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6282E2BE22031AC800E458E6 /* AddIngredientsViewController.swift */; };
 		62911C9B2215CEBA005ACEDC /* YummlyApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62911C9A2215CEBA005ACEDC /* YummlyApiResponse.swift */; };
 		629EDCBF2205D51600F0366A /* RecipesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629EDCBE2205D51600F0366A /* RecipesService.swift */; };
+		62AED60522293FF800422F99 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AED60422293FF800422F99 /* RecipeDetailViewController.swift */; };
+		62AED6072229408900422F99 /* FavoriteRecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AED6062229408900422F99 /* FavoriteRecipeDetailViewController.swift */; };
+		62AED60B222943BC00422F99 /* DissmissRecipeDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AED60A222943BC00422F99 /* DissmissRecipeDetailButton.swift */; };
 		62EA7B44220B53F700403E60 /* Ingredients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EA7B43220B53F700403E60 /* Ingredients.swift */; };
 		62EC9ED12204492E00004716 /* ListRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EC9ED02204492E00004716 /* ListRecipesViewController.swift */; };
-		62EC9ED322044DB000004716 /* RecipeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EC9ED222044DB000004716 /* RecipeDetailsViewController.swift */; };
+		62EC9ED322044DB000004716 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EC9ED222044DB000004716 /* RecipeViewController.swift */; };
 		62EC9ED522045D0900004716 /* ListFavoritesRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EC9ED422045D0900004716 /* ListFavoritesRecipesViewController.swift */; };
 		62EC9ED722045D4200004716 /* FavoriteRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EC9ED622045D4200004716 /* FavoriteRecipeViewController.swift */; };
-		62F5B27B2225450C00829E66 /* FavoriteRecipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B27A2225450C00829E66 /* FavoriteRecipeButton.swift */; };
+		62F5B27B2225450C00829E66 /* RecipeDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B27A2225450C00829E66 /* RecipeDetailButton.swift */; };
 		62F5B27D2225470400829E66 /* UnwindAddIngredientsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B27C2225470400829E66 /* UnwindAddIngredientsButton.swift */; };
-		62F5B27F222547AD00829E66 /* DeleteFavoriteRecipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B27E222547AD00829E66 /* DeleteFavoriteRecipeButton.swift */; };
+		62F5B27F222547AD00829E66 /* FavoriteRecipeDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B27E222547AD00829E66 /* FavoriteRecipeDetailButton.swift */; };
 		62F5B2812225488100829E66 /* DissmissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B2802225488100829E66 /* DissmissButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,14 +69,17 @@
 		6282E2BE22031AC800E458E6 /* AddIngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientsViewController.swift; sourceTree = "<group>"; };
 		62911C9A2215CEBA005ACEDC /* YummlyApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YummlyApiResponse.swift; sourceTree = "<group>"; };
 		629EDCBE2205D51600F0366A /* RecipesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesService.swift; sourceTree = "<group>"; };
+		62AED60422293FF800422F99 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
+		62AED6062229408900422F99 /* FavoriteRecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeDetailViewController.swift; sourceTree = "<group>"; };
+		62AED60A222943BC00422F99 /* DissmissRecipeDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DissmissRecipeDetailButton.swift; sourceTree = "<group>"; };
 		62EA7B43220B53F700403E60 /* Ingredients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredients.swift; sourceTree = "<group>"; };
 		62EC9ED02204492E00004716 /* ListRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRecipesViewController.swift; sourceTree = "<group>"; };
-		62EC9ED222044DB000004716 /* RecipeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewController.swift; sourceTree = "<group>"; };
+		62EC9ED222044DB000004716 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		62EC9ED422045D0900004716 /* ListFavoritesRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFavoritesRecipesViewController.swift; sourceTree = "<group>"; };
 		62EC9ED622045D4200004716 /* FavoriteRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeViewController.swift; sourceTree = "<group>"; };
-		62F5B27A2225450C00829E66 /* FavoriteRecipeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeButton.swift; sourceTree = "<group>"; };
+		62F5B27A2225450C00829E66 /* RecipeDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailButton.swift; sourceTree = "<group>"; };
 		62F5B27C2225470400829E66 /* UnwindAddIngredientsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwindAddIngredientsButton.swift; sourceTree = "<group>"; };
-		62F5B27E222547AD00829E66 /* DeleteFavoriteRecipeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFavoriteRecipeButton.swift; sourceTree = "<group>"; };
+		62F5B27E222547AD00829E66 /* FavoriteRecipeDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeDetailButton.swift; sourceTree = "<group>"; };
 		62F5B2802225488100829E66 /* DissmissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DissmissButton.swift; sourceTree = "<group>"; };
 		802110F5AB2A037B37A20476 /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
 		A44464B13C7A392D43CE17A4 /* Pods-Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,10 +206,8 @@
 				6282E29922030BB200E458E6 /* Main.storyboard */,
 				62629ACD220DE86200BDB4BC /* RecipeTableViewCell.swift */,
 				627F6838221EB54600F9B608 /* FavoriteRecipeTableViewCell.swift */,
-				62F5B27A2225450C00829E66 /* FavoriteRecipeButton.swift */,
-				62F5B27C2225470400829E66 /* UnwindAddIngredientsButton.swift */,
-				62F5B27E222547AD00829E66 /* DeleteFavoriteRecipeButton.swift */,
-				62F5B2802225488100829E66 /* DissmissButton.swift */,
+				62AED6082229422200422F99 /* RecipeButtons */,
+				62AED6092229426F00422F99 /* FavoriteRecipeButtons */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -219,12 +223,32 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		62AED6082229422200422F99 /* RecipeButtons */ = {
+			isa = PBXGroup;
+			children = (
+				62F5B27A2225450C00829E66 /* RecipeDetailButton.swift */,
+				62F5B27C2225470400829E66 /* UnwindAddIngredientsButton.swift */,
+				62AED60A222943BC00422F99 /* DissmissRecipeDetailButton.swift */,
+			);
+			path = RecipeButtons;
+			sourceTree = "<group>";
+		};
+		62AED6092229426F00422F99 /* FavoriteRecipeButtons */ = {
+			isa = PBXGroup;
+			children = (
+				62F5B27E222547AD00829E66 /* FavoriteRecipeDetailButton.swift */,
+				62F5B2802225488100829E66 /* DissmissButton.swift */,
+			);
+			path = FavoriteRecipeButtons;
+			sourceTree = "<group>";
+		};
 		62EC9ED8220464E300004716 /* SearchViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				6282E2BE22031AC800E458E6 /* AddIngredientsViewController.swift */,
 				62EC9ED02204492E00004716 /* ListRecipesViewController.swift */,
-				62EC9ED222044DB000004716 /* RecipeDetailsViewController.swift */,
+				62EC9ED222044DB000004716 /* RecipeViewController.swift */,
+				62AED60422293FF800422F99 /* RecipeDetailViewController.swift */,
 			);
 			path = SearchViewControllers;
 			sourceTree = "<group>";
@@ -234,6 +258,7 @@
 			children = (
 				62EC9ED422045D0900004716 /* ListFavoritesRecipesViewController.swift */,
 				62EC9ED622045D4200004716 /* FavoriteRecipeViewController.swift */,
+				62AED6062229408900422F99 /* FavoriteRecipeDetailViewController.swift */,
 			);
 			path = FavoriteViewControllers;
 			sourceTree = "<group>";
@@ -423,16 +448,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62AED60B222943BC00422F99 /* DissmissRecipeDetailButton.swift in Sources */,
 				62EC9ED12204492E00004716 /* ListRecipesViewController.swift in Sources */,
 				6282E29E22030BB200E458E6 /* Reciplease.xcdatamodeld in Sources */,
 				62F5B27D2225470400829E66 /* UnwindAddIngredientsButton.swift in Sources */,
+				62AED6072229408900422F99 /* FavoriteRecipeDetailViewController.swift in Sources */,
 				624C0BCC2213196300A29616 /* ExtensionAlertController.swift in Sources */,
-				62F5B27F222547AD00829E66 /* DeleteFavoriteRecipeButton.swift in Sources */,
+				62F5B27F222547AD00829E66 /* FavoriteRecipeDetailButton.swift in Sources */,
 				62629ACE220DE86200BDB4BC /* RecipeTableViewCell.swift in Sources */,
-				62F5B27B2225450C00829E66 /* FavoriteRecipeButton.swift in Sources */,
+				62F5B27B2225450C00829E66 /* RecipeDetailButton.swift in Sources */,
 				6282E2BF22031AC800E458E6 /* AddIngredientsViewController.swift in Sources */,
 				629EDCBF2205D51600F0366A /* RecipesService.swift in Sources */,
-				62EC9ED322044DB000004716 /* RecipeDetailsViewController.swift in Sources */,
+				62EC9ED322044DB000004716 /* RecipeViewController.swift in Sources */,
 				62EC9ED522045D0900004716 /* ListFavoritesRecipesViewController.swift in Sources */,
 				62911C9B2215CEBA005ACEDC /* YummlyApiResponse.swift in Sources */,
 				627F6839221EB54600F9B608 /* FavoriteRecipeTableViewCell.swift in Sources */,
@@ -441,6 +468,7 @@
 				62EA7B44220B53F700403E60 /* Ingredients.swift in Sources */,
 				6230DBBC2225A75000266B89 /* FavoriteRecipe.swift in Sources */,
 				62F5B2812225488100829E66 /* DissmissButton.swift in Sources */,
+				62AED60522293FF800422F99 /* RecipeDetailViewController.swift in Sources */,
 				6282E29622030BB200E458E6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

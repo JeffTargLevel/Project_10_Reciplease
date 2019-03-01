@@ -8,13 +8,14 @@
 
 import UIKit
 
-class RecipeDetailsViewController: UIViewController {
+class RecipeViewController: UIViewController {
     
+    @IBOutlet weak var addFavoriteButtonItem: UIBarButtonItem!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeNameLabel: UILabel!
     @IBOutlet weak var recipeIngredientsTextView: UITextView!
     @IBOutlet weak var recipeTotalTimeAndRatingLabel: UILabel!
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var favoriteRecipeDetailButton: UIButton!
     
     var displayRecipeImage: UIImage?
     var displayRecipeName: String?
@@ -33,15 +34,15 @@ class RecipeDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         displayRecipe()
-        toogleFavoriteButton()
+        toogleAddFavoriteButtonItem()
     }
     
-    private func toogleFavoriteButton() {
+    private func toogleAddFavoriteButtonItem() {
         guard isNotAlreadyAfavorite else {
-            favoriteButton.isSelected = true
+            addFavoriteButtonItem.isEnabled = false
             return
         }
-        favoriteButton.isSelected = false
+        addFavoriteButtonItem.isEnabled = true
     }
     
     private func displayRecipe() {
@@ -54,7 +55,7 @@ class RecipeDetailsViewController: UIViewController {
         recipeTotalTimeAndRatingLabel.layer.cornerRadius = 20
     }
     
-    private func addOrDeleteFavoriteRecipe() {
+    private func addFavoriteRecipe() {
         guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text else {return}
         
         ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n- ", with: ",").replacingOccurrences(of: "- ", with: "")
@@ -63,8 +64,10 @@ class RecipeDetailsViewController: UIViewController {
         FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image)
     }
     
-    @IBAction func tapFavoriteButton() {
-        addOrDeleteFavoriteRecipe()
-        toogleFavoriteButton()
+    @IBAction func tapAddFavoriteButtonItem(_ sender: Any) {
+        addFavoriteRecipe()
+        toogleAddFavoriteButtonItem()
     }
+    
+    @IBAction func tapFavoriteRecipeDetailButton() {}
 }
