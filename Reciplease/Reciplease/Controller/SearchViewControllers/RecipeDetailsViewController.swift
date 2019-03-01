@@ -20,14 +20,12 @@ class RecipeDetailsViewController: UIViewController {
     var displayRecipeName: String?
     var displayRecipeIngredients: String?
     var displayRecipeTotalTimeAndRating: String?
-    var indexFavoriteRecipe = Int()
     
     private var isNotAlreadyAfavorite: Bool {
-        for (index, recipe) in FavoriteRecipe.all.enumerated() {
+        for (_, recipe) in FavoriteRecipe.all.enumerated() {
             guard recipe.name != displayRecipeName else {
                 return false
             }
-            indexFavoriteRecipe = index
         }
         return true
     }
@@ -60,16 +58,9 @@ class RecipeDetailsViewController: UIViewController {
         guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text else {return}
         
         ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n- ", with: ",").replacingOccurrences(of: "- ", with: "")
-        guard isNotAlreadyAfavorite else {
-            removeFavoriteRecipe()
-            return
-        }
+        guard isNotAlreadyAfavorite else {return}
+        
         FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image)
-    }
-    
-    private func removeFavoriteRecipe() {
-        let favoriteRecipe = FavoriteRecipe.all[indexFavoriteRecipe]
-        FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
     }
     
     @IBAction func tapFavoriteButton() {
