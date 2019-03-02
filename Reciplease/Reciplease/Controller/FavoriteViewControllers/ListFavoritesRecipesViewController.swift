@@ -11,6 +11,7 @@ import UIKit
 class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var listFavoritesRecipesTableView: UITableView!
+    @IBOutlet weak var noFavoritesRecipesLabel: UILabel!
     
     private var displayRecipeImage: UIImage?
     private var displayRecipeName:String?
@@ -21,6 +22,15 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         listFavoritesRecipesTableView.reloadData()
+        displayNoFavoritesRecipes()
+    }
+    
+    private func displayNoFavoritesRecipes() {
+        guard FavoriteRecipe.all.count > 0 else {
+            noFavoritesRecipesLabel.isHidden = false
+            return
+        }
+        noFavoritesRecipesLabel.isHidden = true
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
