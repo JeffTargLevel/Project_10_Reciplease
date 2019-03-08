@@ -19,6 +19,8 @@ class FavoriteRecipeDetailViewController: UIViewController {
         displayIngredientLines()
     }
     
+    // MARK: - Display recipe detail
+    
     private func displayIngredientLines() {
         guard let ingredientLines = ingredientLines else {return}
         
@@ -29,4 +31,3 @@ class FavoriteRecipeDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-

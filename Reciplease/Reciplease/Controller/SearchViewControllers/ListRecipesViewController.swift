@@ -24,10 +24,14 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         updateRequest()
     }
     
+    // MARK: - Show or hidden activityIndicator and tableView
+    
     private func toggleActivityIndicator(shown: Bool) {
         listRecipesTableView.isHidden = shown
         activityIndicator.isHidden = !shown
     }
+    
+    // MARK: - Update request for search recipes
     
     private func updateRequest() {
         RecipesService.removeAllRecipes()
@@ -42,6 +46,8 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
+    
+    // MARK: - TableView for recipes found
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -67,6 +73,8 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    // MARK: - Configure cell and prepare for segue at recipeViewController
+    
     private func configureCurrentCell() {
         guard let indexPath = listRecipesTableView.indexPathForSelectedRow, let currentCell = listRecipesTableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {return}
         
@@ -90,6 +98,8 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
             viewController.ingredientLines = ingredientLines
     }
+    
+    // MARK: - Alert controller with extension
     
     private func presentAlert() {
         presentAlert(withTitle: "Error", message: "Search failed")

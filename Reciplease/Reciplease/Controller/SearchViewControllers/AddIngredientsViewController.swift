@@ -19,6 +19,8 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         showSearchRecipesButton()
     }
     
+    // MARK: - Add ingredients in addIngredientsTextField and display in addedIngredientsTextView
+    
     private func addIngredients() {
         guard var ingredient = addIngredientsTextField.text,
             var listIngredients = addedIngredientsTextView.text else {return}
@@ -35,6 +37,8 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         showSearchRecipesButton()
     }
     
+    // MARK: - Clear any add ingredients
+    
     private func clearListIngredients() {
         addIngredientsTextField.text = ""
         addedIngredientsTextView.text = ""
@@ -47,12 +51,16 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    // MARK: - Show or hidden showSearchRecipeButton
+    
     private func showSearchRecipesButton() {
         guard addedIngredientsTextView.text.count > 0 else {
             return searchForRecipesButton.isHidden = true
         }
         searchForRecipesButton.isHidden = false
     }
+    
+    // MARK: - Alert controller with extension
     
     private func presentAlert() {
         presentAlert(withTitle: "Error", message: "Enter ingredients")
@@ -70,3 +78,4 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func unwindAddIngredients(segue: UIStoryboardSegue) {}
 }
+

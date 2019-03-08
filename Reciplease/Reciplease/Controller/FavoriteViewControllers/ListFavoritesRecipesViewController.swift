@@ -26,6 +26,8 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         displayNoFavoritesRecipes()
     }
     
+    // MARK: - Display label noFavoritesRecipesLabel if no favorites recipes saved
+    
     private func displayNoFavoritesRecipes() {
         guard FavoriteRecipe.all.count > 0 else {
             noFavoritesRecipesLabel.isHidden = false
@@ -33,6 +35,8 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         }
         noFavoritesRecipesLabel.isHidden = true
     }
+    
+    // MARK: - tableView for recipes saved
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -71,6 +75,8 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         }
     }
     
+    // MARK: - Configure cell and prepare for segue at FavoriteRecipeViewController
+    
     private func configureCurrentCell() {
         guard let indexPath = listFavoritesRecipesTableView.indexPathForSelectedRow,
             let currentCell = listFavoritesRecipesTableView.cellForRow(at: indexPath) as? FavoriteRecipeTableViewCell else {return}
@@ -96,6 +102,8 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         viewController.ingredientLines = ingredientLines
         viewController.indexFavoriteRecipe = indexFavoriteRecipe
     }
+    
+    // MARK: - Alert controller with extension
     
     private func presentAlert() {
         presentAlert(withTitle: "Error", message: "Search failed")

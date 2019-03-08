@@ -19,6 +19,8 @@ class RecipeDetailViewController: UIViewController {
         displayIngredientLines()
     }
     
+    // MARK: - Display recipe detail
+    
     private func displayIngredientLines() {
         guard let ingredientLines = ingredientLines else {return}
         

@@ -26,6 +26,8 @@ class FavoriteRecipeViewController: UIViewController {
         super.viewDidLoad()
         displayRecipe()
     }
+   
+    // MARK: - Display recipe saved
     
     private func displayRecipe() {
         guard let title = displayRecipeName, let image = displayRecipeImage, let detail = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {return}
@@ -37,11 +39,15 @@ class FavoriteRecipeViewController: UIViewController {
         totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
     }
     
+    // MARK: - Delete recipe saved
+    
     private func removeFavoriteRecipe() {
         guard let indexFavoriteRecipe = indexFavoriteRecipe else {return}
         let favoriteRecipe = FavoriteRecipe.all[indexFavoriteRecipe]
         FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
     }
+    
+    // MARK: - Prepare for segue for display recipe detail in FavoriteRecipeDetailViewController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "DisplayFavoriteRecipeDetail" else {return}
