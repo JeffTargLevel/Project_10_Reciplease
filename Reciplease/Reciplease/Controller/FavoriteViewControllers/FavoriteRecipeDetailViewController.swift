@@ -9,8 +9,24 @@
 import UIKit
 
 class FavoriteRecipeDetailViewController: UIViewController {
-
+    
+    @IBOutlet weak var favoriteRecipeDetailTextView: UITextView!
+    
+    var ingredientLines: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        displayIngredientLines()
+    }
+    
+    private func displayIngredientLines() {
+        guard let ingredientLines = ingredientLines else {return}
+        
+        favoriteRecipeDetailTextView.text = "- " + ingredientLines.replacingOccurrences(of: ",", with: "\n\n- ")
+    }
+    
     @IBAction func tapDissmissButton() {
         dismiss(animated: true, completion: nil)
     }
 }
+

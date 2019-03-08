@@ -13,10 +13,11 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var listRecipesTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    private var displayRecipeImage: UIImage?
-    private var displayRecipeName:String?
-    private var displayRecipeIngredients: String?
-    private var displayRecipeTotalTimeAndRating: String?
+    private var recipeImage: UIImage?
+    private var recipeName: String?
+    private var recipeIngredients: String?
+    private var recipeTotalTimeAndRating: String?
+    private var ingredientLines: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +56,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             return UITableViewCell()
         }
         let recipe = RecipesService.recipes[indexPath.row]
-        cell.configure(with: recipe.recipeImage, recipeTitle: recipe.name, recipeDetail: recipe.ingredients, totalTimeAndRating: recipe.totalTimeAndRating)
+        cell.configure(with: recipe.recipeImage, recipeTitle: recipe.name, recipeDetail: recipe.ingredients, totalTimeAndRating: recipe.totalTimeAndRating, ingredientLines: recipe.ingredientLines)
         return cell
     }
     
@@ -69,10 +70,11 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     private func configureCurrentCell() {
         guard let indexPath = listRecipesTableView.indexPathForSelectedRow, let currentCell = listRecipesTableView.cellForRow(at: indexPath) as? RecipeTableViewCell else {return}
         
-        displayRecipeImage = currentCell.recipeImageView.image
-        displayRecipeName = currentCell.recipeTitleLabel.text
-        displayRecipeIngredients = currentCell.recipeDetailLabel.text
-        displayRecipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
+        recipeImage = currentCell.recipeImageView.image
+        recipeName = currentCell.recipeTitleLabel.text
+        recipeIngredients = currentCell.recipeDetailLabel.text
+        recipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
+        ingredientLines = currentCell.ingredientLines
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,10 +84,11 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             
         guard let viewController = segue.destination as? RecipeViewController else {return}
         
-            viewController.displayRecipeImage = displayRecipeImage
-            viewController.displayRecipeName = displayRecipeName
-            viewController.displayRecipeIngredients = displayRecipeIngredients
-            viewController.displayRecipeTotalTimeAndRating = displayRecipeTotalTimeAndRating
+            viewController.displayRecipeImage = recipeImage
+            viewController.displayRecipeName = recipeName
+            viewController.displayRecipeIngredients = recipeIngredients
+            viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
+            viewController.ingredientLines = ingredientLines
     }
     
     private func presentAlert() {

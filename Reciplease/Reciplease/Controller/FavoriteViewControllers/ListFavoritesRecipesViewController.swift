@@ -13,10 +13,11 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     @IBOutlet weak var listFavoritesRecipesTableView: UITableView!
     @IBOutlet weak var noFavoritesRecipesLabel: UILabel!
     
-    private var displayRecipeImage: UIImage?
-    private var displayRecipeName:String?
-    private var displayRecipeIngredients: String?
-    private var displayRecipeTotalTimeAndRating: String?
+    private var recipeImage: UIImage?
+    private var recipeName:String?
+    private var recipeIngredients: String?
+    private var recipeTotalTimeAndRating: String?
+    private var ingredientLines: String?
     private var indexFavoriteRecipe: Int?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +47,11 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
             return UITableViewCell()
         }
         let favoriteRecipe = FavoriteRecipe.all[indexPath.row]
-        cell.configure(with: favoriteRecipe.image!, recipeTitle: favoriteRecipe.name!, recipeDetail: favoriteRecipe.ingredients!, totalTimeAndRating: favoriteRecipe.totalTimeAndRating!)
+        guard let image = favoriteRecipe.image, let recipeTitle = favoriteRecipe.name, let recipeDetail = favoriteRecipe.ingredients, let totalTimeAndRating = favoriteRecipe.totalTimeAndRating, let ingredientLines = favoriteRecipe.ingredientLines else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(with: image, recipeTitle: recipeTitle, recipeDetail: recipeDetail, totalTimeAndRating: totalTimeAndRating, ingredientLines: ingredientLines)
         return cell
     }
     
@@ -70,10 +75,11 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         guard let indexPath = listFavoritesRecipesTableView.indexPathForSelectedRow,
             let currentCell = listFavoritesRecipesTableView.cellForRow(at: indexPath) as? FavoriteRecipeTableViewCell else {return}
         
-        displayRecipeImage = currentCell.recipeImageView.image
-        displayRecipeName = currentCell.recipeTitleLabel.text
-        displayRecipeIngredients = currentCell.recipeDetailLabel.text
-        displayRecipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
+        recipeImage = currentCell.recipeImageView.image
+        recipeName = currentCell.recipeTitleLabel.text
+        recipeIngredients = currentCell.recipeDetailLabel.text
+        recipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
+        ingredientLines = currentCell.ingredientLines
         indexFavoriteRecipe = indexPath.row
     }
     
@@ -83,10 +89,11 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         
         guard let viewController = segue.destination as? FavoriteRecipeViewController else {return}
         
-        viewController.displayRecipeImage = displayRecipeImage
-        viewController.displayRecipeName = displayRecipeName
-        viewController.displayRecipeIngredients = displayRecipeIngredients
-        viewController.displayRecipeTotalTimeAndRating = displayRecipeTotalTimeAndRating
+        viewController.displayRecipeImage = recipeImage
+        viewController.displayRecipeName = recipeName
+        viewController.displayRecipeIngredients = recipeIngredients
+        viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
+        viewController.ingredientLines = ingredientLines
         viewController.indexFavoriteRecipe = indexFavoriteRecipe
     }
     

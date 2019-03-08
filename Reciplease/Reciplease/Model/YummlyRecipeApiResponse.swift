@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct YummlyApiResponse: Codable {
+struct YummlyRecipeApiResponse: Codable {
     let matches: [Match]
 }
 

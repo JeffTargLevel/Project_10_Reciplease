@@ -14,6 +14,6 @@ struct Recipe {
     var ingredients: String
     var totalTimeAndRating: String
     var recipeImage: UIImage
+    var ingredientLines: String
 }
-
 

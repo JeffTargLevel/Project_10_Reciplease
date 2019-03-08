@@ -19,12 +19,13 @@ class FavoriteRecipe: NSManagedObject {
         return favoritesRecipes
     }
     
-    static func saveFavoriteRecipe(name: String, ingredients: String, totalTimeAndRating: String, image: UIImage) {
+    static func saveFavoriteRecipe(name: String, ingredients: String, totalTimeAndRating: String, image: UIImage, ingredientLines: String) {
         let favoriteRecipe = FavoriteRecipe(context: AppDelegate.viewContext)
         favoriteRecipe.name = name
         favoriteRecipe.ingredients = ingredients
         favoriteRecipe.totalTimeAndRating = totalTimeAndRating
         favoriteRecipe.image = image.pngData()
+        favoriteRecipe.ingredientLines = ingredientLines
         try? AppDelegate.viewContext.save()
         
     }

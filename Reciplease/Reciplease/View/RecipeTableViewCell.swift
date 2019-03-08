@@ -15,11 +15,14 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var recipeDetailLabel: UILabel!
     @IBOutlet weak var totalTimeAndRatingRecipeLabel: UILabel!
     
-    func configure(with image: UIImage, recipeTitle: String, recipeDetail: String, totalTimeAndRating: String) {
+    var ingredientLines: String?
+    
+    func configure(with image: UIImage, recipeTitle: String, recipeDetail: String, totalTimeAndRating: String, ingredientLines: String) {
         recipeImageView.image = image
         recipeTitleLabel.text = recipeTitle
         recipeDetailLabel.text = recipeDetail
         totalTimeAndRatingRecipeLabel.text = totalTimeAndRating
+        self.ingredientLines = ingredientLines
         totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
     }
 }

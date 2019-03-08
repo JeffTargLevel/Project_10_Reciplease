@@ -21,6 +21,7 @@ class RecipeViewController: UIViewController {
     var displayRecipeName: String?
     var displayRecipeIngredients: String?
     var displayRecipeTotalTimeAndRating: String?
+    var ingredientLines: String?
     
     private var isNotAlreadyAfavorite: Bool {
         for (_, recipe) in FavoriteRecipe.all.enumerated() {
@@ -46,7 +47,7 @@ class RecipeViewController: UIViewController {
     }
     
     private func displayRecipe() {
-        guard let name = displayRecipeName, let image = displayRecipeImage, let ingredients = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {return}
+        guard let name = displayRecipeName, let image = displayRecipeImage, let ingredients = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating else {return}
         
         recipeNameLabel.text = name
         recipeImageView.image = image
@@ -56,12 +57,19 @@ class RecipeViewController: UIViewController {
     }
     
     private func addFavoriteRecipe() {
-        guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text else {return}
+        guard let name = recipeNameLabel.text, let image = recipeImageView.image, let ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text, let ingredientLines = ingredientLines else {return}
         
-        ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n- ", with: ",").replacingOccurrences(of: "- ", with: "")
         guard isNotAlreadyAfavorite else {return}
         
-        FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image)
+        FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image, ingredientLines: ingredientLines)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "DisplayRecipeDetail" else {return}
+        
+        guard let viewController = segue.destination as? RecipeDetailViewController else {return}
+        
+        viewController.ingredientLines = ingredientLines
     }
     
     @IBAction func tapAddFavoriteButtonItem(_ sender: Any) {

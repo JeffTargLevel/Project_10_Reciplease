@@ -19,6 +19,7 @@ class FavoriteRecipeViewController: UIViewController {
     var displayRecipeName: String?
     var displayRecipeIngredients: String?
     var displayRecipeTotalTimeAndRating: String?
+    var ingredientLines: String?
     var indexFavoriteRecipe: Int?
     
     override func viewDidLoad() {
@@ -31,7 +32,7 @@ class FavoriteRecipeViewController: UIViewController {
         
         recipeTitleLabel.text = title
         recipeImageView.image = image
-        recipeDetailTextView.text = "- " + detail.replacingOccurrences(of: ",", with: "\n\n- ")
+        recipeDetailTextView.text = detail
         totalTimeAndRatingRecipeLabel.text = totalTimeAndRating
         totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
     }
@@ -40,6 +41,14 @@ class FavoriteRecipeViewController: UIViewController {
         guard let indexFavoriteRecipe = indexFavoriteRecipe else {return}
         let favoriteRecipe = FavoriteRecipe.all[indexFavoriteRecipe]
         FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "DisplayFavoriteRecipeDetail" else {return}
+        
+        guard let viewController = segue.destination as? FavoriteRecipeDetailViewController else {return}
+        
+        viewController.ingredientLines = ingredientLines
     }
     
     @IBAction func tapTrashFavoriteRecipeButtonItem(_ sender: Any) {

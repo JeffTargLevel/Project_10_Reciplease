@@ -15,11 +15,14 @@ class FavoriteRecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var recipeDetailLabel: UILabel!
     @IBOutlet weak var totalTimeAndRatingRecipeLabel: UILabel!
     
-    func configure(with image: Data, recipeTitle: String, recipeDetail: String, totalTimeAndRating: String) {
+    var ingredientLines: String?
+    
+    func configure(with image: Data, recipeTitle: String, recipeDetail: String, totalTimeAndRating: String, ingredientLines: String) {
         recipeImageView.image = UIImage(data: image)
         recipeTitleLabel.text = recipeTitle
         recipeDetailLabel.text = recipeDetail
         totalTimeAndRatingRecipeLabel.text = totalTimeAndRating
+        self.ingredientLines = ingredientLines
         totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
     }
 }
