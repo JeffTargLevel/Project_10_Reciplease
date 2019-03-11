@@ -55,7 +55,7 @@ class RecipeViewController: UIViewController {
         
         recipeNameLabel.text = name
         recipeImageView.image = image
-        recipeIngredientsTextView.text = "- " + ingredients.replacingOccurrences(of: ",", with: "\n\n- ")
+        recipeIngredientsTextView.text = "☞ " + ingredients.replacingOccurrences(of: ",", with: "\n\n☞ ")
         recipeTotalTimeAndRatingLabel.text = totalTimeAndRating
         recipeTotalTimeAndRatingLabel.layer.cornerRadius = 20
     }

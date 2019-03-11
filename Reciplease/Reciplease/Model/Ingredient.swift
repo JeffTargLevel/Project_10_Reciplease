@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct IngredientsSetting {
+struct Ingredient {
     var name = String()
 }

@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 class RecipesService {
-    static var ingredients = IngredientsSetting()
+    static var ingredient = Ingredient()
     static  var recipes = [Recipe]()
     
     static func add(recipe: Recipe) {
@@ -23,8 +23,8 @@ class RecipesService {
     
     static func getRecipes(callback: @escaping (Bool, Recipe?) -> Void) {
         
-        Alamofire.request("http://api.yummly.com/v1/api/recipes?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e&requirePictures=true",
-                          method: .get, parameters: ["q": "\(ingredients.name)"])
+        Alamofire.request("http://api.yummly.com/v1/api/recipes?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e",
+                          method: .get, parameters: ["q": "\(ingredient.name)", "allowedAllergy[]": "\(SettingService.eggAllergy)&allowedAllergy[]=\(SettingService.glutenAllergy)&allowedAllergy[]=\(SettingService.peanutAllergy)"])
             .validate(statusCode: 200..<300)
             .responseData { (response) in
                 switch response.result {
@@ -44,8 +44,8 @@ class RecipesService {
                         let totalTimeAndRating = String("\(totalTimeInMinutes)" + " " + "M" + "\n" + "\(rating)" + " " + "🙂")
                         
                            getRecipeDetail(recipeId: id) { (ingredientLines, recipeImage) in
-                                guard let ingredientLines = ingredientLines, let recipeImage = recipeImage  else {return}
-                                
+                            guard let ingredientLines = ingredientLines, let recipeImage = recipeImage  else {return}
+                            
                             let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTimeAndRating: totalTimeAndRating, recipeImage: recipeImage, ingredientLines: ingredientLines)
                                 callback(true, recipe)
                             }
@@ -72,11 +72,10 @@ class RecipesService {
                     guard let ingredientLines = responseJSON?.ingredientLines, let recipeImageUrl = responseJSON?.images[0].hostedLargeURL else {return}
                     
                     getRecipeImage(url: recipeImageUrl) { (recipeImage) in
-                        guard let recipeImage = recipeImage else {
-                            return
-                        }
+                        guard let recipeImage = recipeImage else {return}
                     
                     let onlyIngredientLines = ingredientLines.joined(separator: ",")
+                    
                     callback(onlyIngredientLines, recipeImage)
                     }
                 case .failure:

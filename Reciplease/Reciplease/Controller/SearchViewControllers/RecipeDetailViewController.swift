@@ -24,7 +24,7 @@ class RecipeDetailViewController: UIViewController {
     private func displayIngredientLines() {
         guard let ingredientLines = ingredientLines else {return}
         
-        recipeDetailTextView.text = "- " + ingredientLines.replacingOccurrences(of: ",", with: "\n\n- ")
+        recipeDetailTextView.text = "☞ " + ingredientLines.replacingOccurrences(of: ",", with: "\n\n☞ ")
     }
     
     @IBAction func tapDissmissButton() {

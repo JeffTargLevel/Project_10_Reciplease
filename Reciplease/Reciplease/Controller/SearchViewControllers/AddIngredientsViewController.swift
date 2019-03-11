@@ -29,9 +29,9 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
             return presentAlert()
         }
         ingredient = ingredient.replacingOccurrences(of: ",", with: "+")
-        RecipesService.ingredients.name += ingredient
-        ingredient = ingredient.replacingOccurrences(of: "+", with: "\n\n- ")
-        listIngredients += "- " + ingredient + "\n\n"
+        RecipesService.ingredient.name += ingredient
+        ingredient = ingredient.replacingOccurrences(of: "+", with: "\n\n☞ ")
+        listIngredients += "☞ " + ingredient + "\n\n"
         addedIngredientsTextView.text = listIngredients
         addIngredientsTextField.text = ""
         showSearchRecipesButton()
@@ -42,7 +42,7 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     private func clearListIngredients() {
         addIngredientsTextField.text = ""
         addedIngredientsTextView.text = ""
-        RecipesService.ingredients.name = ""
+        RecipesService.ingredient.name = ""
         showSearchRecipesButton()
     }
     
