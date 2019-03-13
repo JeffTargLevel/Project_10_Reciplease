@@ -42,8 +42,7 @@ class RecipeViewController: UIViewController {
     
     private func toogleAddFavoriteButtonItem() {
         guard isNotAlreadyAfavorite else {
-            addFavoriteButtonItem.isEnabled = false
-            return
+           return addFavoriteButtonItem.isEnabled = false
         }
         addFavoriteButtonItem.isEnabled = true
     }

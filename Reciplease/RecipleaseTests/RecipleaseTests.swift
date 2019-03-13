@@ -10,25 +10,64 @@ import XCTest
 @testable import Reciplease
 
 class RecipleaseTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func getGoodRecipeRequest() {
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+        RecipesService.getRecipes { (success, recipe) in
+            XCTAssertTrue(success)
+            XCTAssertNotNil(recipe)
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 2)
     }
 
+    func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithoutAllergy() {
+       getGoodRecipeRequest()
+    }
+    
+    func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithEggAllergy() {
+        SettingService.eggAllergy = "397^Egg-Free"
+        
+        getGoodRecipeRequest()
+    }
+   
+    func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithGlutenAllergy() {
+        SettingService.glutenAllergy = "393^Gluten-Free"
+        
+        getGoodRecipeRequest()
+    }
+    
+    func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithPeanutAllergy() {
+        SettingService.peanutAllergy = "394^Peanut-Free"
+        
+        getGoodRecipeRequest()
+    }
+    
+    func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithoutEggAllergy() {
+        SettingService.eggAllergy = ""
+        
+        getGoodRecipeRequest()
+    }
+    
+    func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithoutGlutenAllergy() {
+        SettingService.glutenAllergy = ""
+        
+        getGoodRecipeRequest()
+    }
+    
+    func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithoutPeanutAllergy() {
+        SettingService.peanutAllergy = ""
+        
+        getGoodRecipeRequest()
+    }
+    
+    func testSaveFavoriteRecipeInViewContext() {
+        let recipeFake = RecipeFake()
+        FavoriteRecipe.saveFavoriteRecipe(name: recipeFake.name, ingredients: recipeFake.ingredients, totalTimeAndRating: recipeFake.totalTimeAndRating, image: recipeFake.recipeImage, ingredientLines: recipeFake.ingredientLines)
+    }
+    
+    func testDeleteFavoriteRecipeInViewContext() {
+        let favoriteRecipe = FavoriteRecipe.all[0]
+        FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
+    }
 }

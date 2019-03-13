@@ -27,7 +27,6 @@ class FavoriteRecipe: NSManagedObject {
         favoriteRecipe.image = image.pngData()
         favoriteRecipe.ingredientLines = ingredientLines
         try? AppDelegate.viewContext.save()
-        
     }
     
     static func remove(favoriteRecipe: FavoriteRecipe) {

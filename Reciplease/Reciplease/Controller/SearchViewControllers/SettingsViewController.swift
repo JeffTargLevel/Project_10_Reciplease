@@ -23,35 +23,35 @@ class SettingsViewController: UIViewController {
         updateAnySwitch()
     }
     
+    // MARK: - Choice allergy with switch
+    
     private func switchEggAllergy() {
-        
         guard eggAllergySwitch.isOn else {
-            SettingService.eggAllergy = ""
-            return
+           return SettingService.eggAllergy = ""
+            
         }
         SettingService.eggAllergy = eggAllergy
     }
     
     private func switchGlutenAllergy() {
         guard glutenAllergySwitch.isOn else {
-            SettingService.glutenAllergy = ""
-            return
+            return SettingService.glutenAllergy = ""
         }
         SettingService.glutenAllergy = glutenAllergy
     }
     
     private func switchPeanutAllergy() {
         guard peanutAllergySwitch.isOn else {
-            SettingService.peanutAllergy = ""
-            return
+          return SettingService.peanutAllergy = ""
         }
         SettingService.peanutAllergy = peanutAllergy
     }
     
+    // MARK: - Update status of switch every time the view appears with allergy saved
+    
     private func allergySwitchState(allergySaved: String, allergyValue: String, selectSwitch: UISwitch) {
         guard allergySaved == allergyValue else {
-            selectSwitch.isOn = false
-            return
+           return selectSwitch.isOn = false
         }
         selectSwitch.isOn = true
     }

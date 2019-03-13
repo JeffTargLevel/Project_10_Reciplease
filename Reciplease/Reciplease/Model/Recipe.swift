@@ -16,4 +16,3 @@ struct Recipe {
     var recipeImage: UIImage
     var ingredientLines: String
 }
-

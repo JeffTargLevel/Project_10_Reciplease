@@ -30,8 +30,7 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     
     private func displayNoFavoritesRecipes() {
         guard FavoriteRecipe.all.count > 0 else {
-            noFavoritesRecipesLabel.isHidden = false
-            return
+           return noFavoritesRecipesLabel.isHidden = false
         }
         noFavoritesRecipesLabel.isHidden = true
     }
@@ -60,12 +59,12 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete else {
-            return
-        }
+        guard editingStyle == .delete else {return}
+        
         let favoriteRecipe = FavoriteRecipe.all[indexPath.row]
         FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+        displayNoFavoritesRecipes()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

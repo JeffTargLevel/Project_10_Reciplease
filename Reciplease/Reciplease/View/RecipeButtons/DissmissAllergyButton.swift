@@ -20,4 +20,3 @@ class DissmissAllergyButton: UIButton {
         layer.cornerRadius = bounds.width / 2
     }
 }
-
