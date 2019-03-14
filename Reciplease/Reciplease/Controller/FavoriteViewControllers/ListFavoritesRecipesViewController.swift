@@ -105,6 +105,6 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     // MARK: - Alert controller with extension
     
     private func presentAlert() {
-        presentAlert(withTitle: "Error", message: "Search failed")
+        presentAlert(withTitle: "Error", message: "Search failed", dissmiss: false)
     }
 }

@@ -21,7 +21,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateRequest()
+        updateRequestWithDelay()
     }
     
     // MARK: - Show or hidden activityIndicator and tableView
@@ -42,7 +42,17 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
                 RecipesService.add(recipe: recipe)
                 self.listRecipesTableView.reloadData()
             } else {
-                self.presentAlert()
+                self.presentAlertForSearchFailed()
+            }
+        }
+    }
+    
+    func updateRequestWithDelay() {
+        updateRequest()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            if self.activityIndicator.isHidden == false {
+                self.toggleActivityIndicator(shown: false)
+                self.presentAlertForNoRecipeFound()
             }
         }
     }
@@ -101,7 +111,11 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Alert controller with extension
     
-    private func presentAlert() {
-        presentAlert(withTitle: "Error", message: "Search failed")
+    private func presentAlertForSearchFailed() {
+        presentAlert(withTitle: "Error", message: "Search failed", dissmiss: false)
+    }
+    
+    private func presentAlertForNoRecipeFound() {
+        presentAlert(withTitle: "Error", message: "No recipe found", dissmiss: true)
     }
 }

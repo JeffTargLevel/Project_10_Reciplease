@@ -63,7 +63,7 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Alert controller with extension
     
     private func presentAlert() {
-        presentAlert(withTitle: "Error", message: "Enter ingredients")
+        presentAlert(withTitle: "Error", message: "Enter ingredients", dissmiss: false)
     }
     
     @IBAction func tapAddIngredientsButton(_ sender: Any) {
