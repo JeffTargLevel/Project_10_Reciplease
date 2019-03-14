@@ -14,11 +14,10 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addedIngredientsTextView: UITextView!
     @IBOutlet weak var searchForRecipesButton: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        showSearchRecipesButton()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        clearListIngredients()
     }
-    
     // MARK: - Add ingredients in addIngredientsTextField and display in addedIngredientsTextView
     
     private func addIngredients() {
@@ -26,8 +25,24 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
             var listIngredients = addedIngredientsTextView.text else {return}
         
         guard ingredient.count > 0 else {
-            return presentAlert()
+            return presentAlertEnterIngredient()
         }
+        
+        guard !((ingredient.contains("egg") || ingredient.contains("eggs")) && SettingService.eggAllergy == "397^Egg-Free") else {
+           presentAlertExcludedIngredient()
+            return
+        }
+        
+        guard !(ingredient.contains("gluten") && SettingService.glutenAllergy == "393^Gluten-Free") else {
+            presentAlertExcludedIngredient()
+            return
+        }
+        
+        guard !(ingredient.contains("peanut") && SettingService.peanutAllergy == "394^Peanut-Free") else {
+            presentAlertExcludedIngredient()
+            return
+        }
+    
         ingredient = ingredient.replacingOccurrences(of: ",", with: "+")
         RecipesService.ingredient.name += ingredient
         ingredient = ingredient.replacingOccurrences(of: "+", with: "\n\n☞ ")
@@ -62,8 +77,12 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Alert controller with extension
     
-    private func presentAlert() {
+    private func presentAlertEnterIngredient() {
         presentAlert(withTitle: "Error", message: "Enter ingredients", dissmiss: false)
+    }
+    
+    private func presentAlertExcludedIngredient() {
+        presentAlert(withTitle: "Error", message: "Excluded ingredient", dissmiss: false)
     }
     
     @IBAction func tapAddIngredientsButton(_ sender: Any) {

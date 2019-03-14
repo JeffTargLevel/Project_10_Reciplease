@@ -54,7 +54,7 @@ class RecipeViewController: UIViewController {
         
         recipeNameLabel.text = name
         recipeImageView.image = image
-        recipeIngredientsTextView.text = "☞ " + ingredients.replacingOccurrences(of: ",", with: "\n\n☞ ")
+        recipeIngredientsTextView.text = "☞ " + ingredients.replacingOccurrences(of: ", ", with: "\n\n☞ ")
         recipeTotalTimeAndRatingLabel.text = totalTimeAndRating
         recipeTotalTimeAndRatingLabel.layer.cornerRadius = 20
     }
@@ -62,10 +62,10 @@ class RecipeViewController: UIViewController {
     // MARK: - Add and save recipe in favorite if it isn't already
     
     private func addFavoriteRecipe() {
-        guard let name = recipeNameLabel.text, let image = recipeImageView.image, let ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text, let ingredientLines = ingredientLines else {return}
+        guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text, let ingredientLines = ingredientLines else {return}
         
         guard isNotAlreadyAfavorite else {return}
-        
+        ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n☞ ", with: ", ").replacingOccurrences(of: "☞ ", with: "")
         FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image, ingredientLines: ingredientLines)
     }
     

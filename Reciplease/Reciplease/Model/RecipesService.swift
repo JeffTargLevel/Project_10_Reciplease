@@ -38,7 +38,7 @@ class RecipesService {
                             let recipeName = responseJSON?.matches[index].recipeName, let totalTimeInSeconds = responseJSON?.matches[index].totalTimeInSeconds,
                             let rating = responseJSON?.matches[index].rating, let id = responseJSON?.matches[index].id else {return}
                         
-                        let onlyIngredients = ingredients.joined(separator: ",")
+                        let onlyIngredients = ingredients.joined(separator: ", ")
                         let totalTimeInMinutes = totalTimeInSeconds/60
                         let totalTimeAndRating = String("\(totalTimeInMinutes)" + " " + "M" + "\n" + "\(rating)" + " " + "🙂")
                         

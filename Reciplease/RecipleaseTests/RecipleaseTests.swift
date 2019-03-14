@@ -12,6 +12,7 @@ import XCTest
 class RecipleaseTests: XCTestCase {
     
     func getGoodRecipeRequest() {
+        RecipesService.ingredient.name = "cheese"
         let expectation = XCTestExpectation(description: "Wait for queue change")
         RecipesService.getRecipes { (success, recipe) in
             XCTAssertTrue(success)

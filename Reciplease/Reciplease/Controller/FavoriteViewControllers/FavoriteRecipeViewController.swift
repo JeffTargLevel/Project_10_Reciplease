@@ -30,11 +30,11 @@ class FavoriteRecipeViewController: UIViewController {
     // MARK: - Display recipe saved
     
     private func displayRecipe() {
-        guard let title = displayRecipeName, let image = displayRecipeImage, let detail = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {return}
+        guard let title = displayRecipeName, let image = displayRecipeImage, let ingredients = displayRecipeIngredients, let totalTimeAndRating = displayRecipeTotalTimeAndRating  else {return}
         
         recipeTitleLabel.text = title
         recipeImageView.image = image
-        recipeDetailTextView.text = detail
+        recipeDetailTextView.text = "☞ " + ingredients.replacingOccurrences(of: ", ", with: "\n\n☞ ")
         totalTimeAndRatingRecipeLabel.text = totalTimeAndRating
         totalTimeAndRatingRecipeLabel.layer.cornerRadius = 20
     }
