@@ -19,11 +19,11 @@ class RecipleaseTests: XCTestCase {
             XCTAssertNotNil(recipe)
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 5)
     }
-
+    
     func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithoutAllergy() {
-       getGoodRecipeRequest()
+        getGoodRecipeRequest()
     }
     
     func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithEggAllergy() {
@@ -31,7 +31,7 @@ class RecipleaseTests: XCTestCase {
         
         getGoodRecipeRequest()
     }
-   
+    
     func testGetRecipeShouldPostSuccessCallbackIfNoErrorAndCorrectDataWithGlutenAllergy() {
         SettingService.glutenAllergy = "393^Gluten-Free"
         
@@ -68,6 +68,8 @@ class RecipleaseTests: XCTestCase {
     }
     
     func testDeleteFavoriteRecipeInViewContext() {
+        let recipeFake = RecipeFake()
+        FavoriteRecipe.saveFavoriteRecipe(name: recipeFake.name, ingredients: recipeFake.ingredients, totalTimeAndRating: recipeFake.totalTimeAndRating, image: recipeFake.recipeImage, ingredientLines: recipeFake.ingredientLines)
         let favoriteRecipe = FavoriteRecipe.all[0]
         FavoriteRecipe.remove(favoriteRecipe: favoriteRecipe)
     }

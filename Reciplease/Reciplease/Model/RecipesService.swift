@@ -49,7 +49,6 @@ class RecipesService {
                             callback(true, recipe)
                         }
                     }
-                    
                 case .failure:
                     callback(false, nil)
                 }
@@ -80,7 +79,6 @@ class RecipesService {
                     callback(nil, nil)
                 }
         }
-        
     }
     static private func getRecipeImage(url: String, completionHandler: @escaping (UIImage?) -> Void) {
         Alamofire.request(url, method: .get)
@@ -92,5 +90,3 @@ class RecipesService {
         }
     }
 }
-
-

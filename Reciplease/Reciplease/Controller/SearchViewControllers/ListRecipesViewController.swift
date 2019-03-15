@@ -21,7 +21,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateRequestWithDelay()
+        updateRequestWithTimeLimit()
     }
     
     // MARK: - Show or hidden activityIndicator and tableView
@@ -31,7 +31,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         activityIndicator.isHidden = !shown
     }
     
-    // MARK: - Update request for search recipes
+    // MARK: - Update request with delay for search recipes
     
     private func updateRequest() {
         RecipesService.removeAllRecipes()
@@ -47,7 +47,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func updateRequestWithDelay() {
+    private func updateRequestWithTimeLimit() {
         updateRequest()
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             if self.activityIndicator.isHidden == false {
@@ -97,16 +97,16 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         configureCurrentCell()
-    
+        
         guard segue.identifier == "DisplayRecipe" else {return}
-            
+        
         guard let viewController = segue.destination as? RecipeViewController else {return}
         
-            viewController.displayRecipeImage = recipeImage
-            viewController.displayRecipeName = recipeName
-            viewController.displayRecipeIngredients = recipeIngredients
-            viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
-            viewController.ingredientLines = ingredientLines
+        viewController.displayRecipeImage = recipeImage
+        viewController.displayRecipeName = recipeName
+        viewController.displayRecipeIngredients = recipeIngredients
+        viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
+        viewController.ingredientLines = ingredientLines
     }
     
     // MARK: - Alert controller with extension
@@ -119,3 +119,4 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         presentAlert(withTitle: "Error", message: "No recipe found", dissmiss: true)
     }
 }
+
