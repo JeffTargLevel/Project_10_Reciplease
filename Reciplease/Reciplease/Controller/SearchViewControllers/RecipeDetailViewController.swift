@@ -31,4 +31,3 @@ class RecipeDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-

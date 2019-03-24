@@ -86,4 +86,3 @@ class RecipeViewController: UIViewController {
     
     @IBAction func tapFavoriteRecipeDetailButton() {}
 }
-

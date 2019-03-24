@@ -119,4 +119,3 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         presentAlert(withTitle: "Error", message: "No recipe found", dissmiss: true)
     }
 }
-
