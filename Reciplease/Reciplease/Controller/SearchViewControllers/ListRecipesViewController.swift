@@ -11,7 +11,6 @@ import UIKit
 class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var listRecipesTableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var recipeImage: UIImage?
     private var recipeName: String?
@@ -21,40 +20,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateRequestWithTimeLimit()
-    }
-    
-    // MARK: - Show or hidden activityIndicator and tableView
-    
-    private func toggleActivityIndicator(shown: Bool) {
-        listRecipesTableView.isHidden = shown
-        activityIndicator.isHidden = !shown
-    }
-    
-    // MARK: - Update request with delay for search recipes
-    
-    private func updateRequest() {
-        RecipesService.removeAllRecipes()
-        toggleActivityIndicator(shown: true)
-        RecipesService.getRecipes { (success, recipe) in
-            self.toggleActivityIndicator(shown: false)
-            if success, let recipe = recipe {
-                RecipesService.add(recipe: recipe)
-                self.listRecipesTableView.reloadData()
-            } else {
-                self.presentAlertForSearchFailed()
-            }
-        }
-    }
-    
-    private func updateRequestWithTimeLimit() {
-        updateRequest()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            if self.activityIndicator.isHidden == false {
-                self.toggleActivityIndicator(shown: false)
-                self.presentAlertForNoRecipeFound()
-            }
-        }
+        listRecipesTableView.reloadData()
     }
     
     // MARK: - TableView for recipes found
@@ -107,15 +73,5 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         viewController.displayRecipeIngredients = recipeIngredients
         viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
         viewController.ingredientLines = ingredientLines
-    }
-    
-    // MARK: - Alert controller with extension
-    
-    private func presentAlertForSearchFailed() {
-        presentAlert(withTitle: "Error", message: "Search failed", dissmiss: false)
-    }
-    
-    private func presentAlertForNoRecipeFound() {
-        presentAlert(withTitle: "Error", message: "No recipe found", dissmiss: true)
     }
 }

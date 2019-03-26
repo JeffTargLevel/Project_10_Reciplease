@@ -13,11 +13,17 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addIngredientsTextField: UITextField!
     @IBOutlet weak var addedIngredientsTextView: UITextView!
     @IBOutlet weak var searchForRecipesButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    deinit {
+        print("OK")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         clearListIngredients()
     }
+    
     // MARK: - Add ingredients in addIngredientsTextField and display in addedIngredientsTextView
     
     private func addIngredients() {
@@ -52,18 +58,48 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         showSearchRecipesButton()
     }
     
+    // MARK: - Update request for search recipes
+    
+    private func updateRequest() {
+        RecipesService.removeAllRecipes()
+        toggleActivityIndicator(shown: true)
+        RecipesService.getRecipes {/*[weak self]*/ (success, recipe, finished) in
+            //guard let self = self else { return }
+            
+            self.toggleActivityIndicator(shown: false)
+            guard success, let recipe = recipe else {
+                 self.presentAlertForSearchFailed()
+                return
+            }
+                RecipesService.add(recipe: recipe)
+            
+            if finished {
+            self.performSegue(withIdentifier: "ListRecipes", sender: self)
+            }
+        }
+        
+    }
+    
     // MARK: - Clear any add ingredients
     
     private func clearListIngredients() {
         addIngredientsTextField.text = ""
         addedIngredientsTextView.text = ""
         RecipesService.ingredient.name = ""
+        activityIndicator.isHidden = true
         showSearchRecipesButton()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    // MARK: - Show or hidden activityIndicator
+    
+    private func toggleActivityIndicator(shown: Bool) {
+        searchForRecipesButton.isHidden = shown
+        activityIndicator.isHidden = !shown
     }
     
     // MARK: - Show or hidden showSearchRecipeButton
@@ -85,6 +121,12 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         presentAlert(withTitle: "Error", message: "Excluded ingredient", dissmiss: false)
     }
     
+    // MARK: - Alert controller with extension
+    
+    private func presentAlertForSearchFailed() {
+        presentAlert(withTitle: "Error", message: "Search failed", dissmiss: false)
+    }
+    
     @IBAction func tapAddIngredientsButton(_ sender: Any) {
         addIngredients()
     }
@@ -93,7 +135,9 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         clearListIngredients()
     }
     
-    @IBAction func tapSearchForRecipesButton(_ sender: Any) {}
+    @IBAction func tapSearchForRecipesButton(_ sender: Any) {
+        updateRequest()
+    }
     
     @IBAction func unwindAddIngredients(segue: UIStoryboardSegue) {}
 }
