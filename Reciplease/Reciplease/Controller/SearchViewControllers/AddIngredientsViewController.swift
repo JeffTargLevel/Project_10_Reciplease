@@ -15,10 +15,6 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var searchForRecipesButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    deinit {
-        print("OK")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         clearListIngredients()
@@ -63,9 +59,7 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
     private func updateRequest() {
         RecipesService.removeAllRecipes()
         toggleActivityIndicator(shown: true)
-        RecipesService.getRecipes {/*[weak self]*/ (success, recipe, finished) in
-            //guard let self = self else { return }
-            
+        RecipesService.getRecipes { (success, recipe, finished) in
             self.toggleActivityIndicator(shown: false)
             guard success, let recipe = recipe else {
                  self.presentAlertForSearchFailed()
@@ -77,7 +71,6 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
             self.performSegue(withIdentifier: "ListRecipes", sender: self)
             }
         }
-        
     }
     
     // MARK: - Clear any add ingredients
