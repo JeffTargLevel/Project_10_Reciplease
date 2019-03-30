@@ -45,11 +45,12 @@ class RecipesService {
                         let totalTimeInMinutes = totalTimeInSeconds/60
                         let totalTimeAndRating = String("\(totalTimeInMinutes)" + " " + "M" + "\n" + "\(rating)" + " " + "🙂")
                         
-                        getRecipeDetail(recipeId: id) { (ingredientLines, recipeImage) in
-                            guard let ingredientLines = ingredientLines, let recipeImage = recipeImage  else {return}
+                        getRecipeImageId(recipeId: id) { (recipeImage) in
+                            guard let recipeImage = recipeImage else {return}
+                            
                             recipesFound += 1
                             
-                            let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTimeAndRating: totalTimeAndRating, recipeImage: recipeImage, ingredientLines: ingredientLines)
+                            let recipe = Recipe(name: recipeName, ingredients: onlyIngredients, totalTimeAndRating: totalTimeAndRating, recipeImage: recipeImage, recipeId: id)
                             callback(true, recipe, recipesTotal == recipesFound)
                         }
                     }
@@ -57,10 +58,9 @@ class RecipesService {
                     callback(false, nil, false)
                 }
         }
-        
     }
     
-    static private func getRecipeDetail(recipeId: String, callback: @escaping (String?, UIImage?) -> Void) {
+    static private func getRecipeImageId(recipeId: String, callback: @escaping (UIImage?) -> Void) {
         Alamofire.request("http://api.yummly.com/v1/api/recipe/\(recipeId)?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e",
             method: .get)
             .validate(statusCode: 200..<300)
@@ -70,16 +70,15 @@ class RecipesService {
                     
                     let responseJSON = try? JSONDecoder().decode(YummlyRecipeDetailApiResponse.self, from: data)
                     
-                    guard let ingredientLines = responseJSON?.ingredientLines, let recipeImageUrl = responseJSON?.images[0].hostedLargeURL else {return}
+                    guard let recipeImageUrl = responseJSON?.images[0].hostedLargeURL else {return}
                     
                     getRecipeImage(url: recipeImageUrl) { (recipeImage) in
                         guard let recipeImage = recipeImage else {return}
                         
-                        let onlyIngredientLines = ingredientLines.joined(separator: ",")
-                        callback(onlyIngredientLines, recipeImage)
+                        callback(recipeImage)
                     }
                 case .failure:
-                    callback(nil, nil)
+                    callback(nil)
                 }
         }
     }
@@ -91,6 +90,27 @@ class RecipesService {
                 guard let recipeImage = UIImage(data: response.data!) else {return}
                 
                 completionHandler(recipeImage)
+        }
+    }
+    
+    static func getRecipeDetail(recipeId: String, callback: @escaping (String?) -> Void) {
+        Alamofire.request("http://api.yummly.com/v1/api/recipe/\(recipeId)?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e",
+            method: .get)
+            .validate(statusCode: 200..<300)
+            .responseData { (response) in
+                switch response.result {
+                case .success(let data):
+                    
+                    let responseJSON = try? JSONDecoder().decode(YummlyRecipeDetailApiResponse.self, from: data)
+                    
+                    guard let ingredientLines = responseJSON?.ingredientLines else {return}
+                    
+                    let onlyIngredientLines = ingredientLines.joined(separator: ",")
+                    callback(onlyIngredientLines)
+                    
+                case .failure:
+                    callback(nil)
+                }
         }
     }
 }

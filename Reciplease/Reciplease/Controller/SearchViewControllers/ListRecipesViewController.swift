@@ -16,7 +16,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
     private var recipeName: String?
     private var recipeIngredients: String?
     private var recipeTotalTimeAndRating: String?
-    private var ingredientLines: String?
+    private var recipeId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
             return UITableViewCell()
         }
         let recipe = RecipesService.recipes[indexPath.row]
-        cell.configure(with: recipe.recipeImage, recipeTitle: recipe.name, recipeDetail: recipe.ingredients, totalTimeAndRating: recipe.totalTimeAndRating, ingredientLines: recipe.ingredientLines)
+        cell.configure(with: recipe.recipeImage, recipeTitle: recipe.name, recipeDetail: recipe.ingredients, totalTimeAndRating: recipe.totalTimeAndRating, recipeId: recipe.recipeId)
         return cell
     }
     
@@ -58,7 +58,7 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         recipeName = currentCell.recipeTitleLabel.text
         recipeIngredients = currentCell.recipeDetailLabel.text
         recipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
-        ingredientLines = currentCell.ingredientLines
+        recipeId = currentCell.recipeId
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -72,6 +72,6 @@ class ListRecipesViewController: UIViewController, UITableViewDelegate, UITableV
         viewController.displayRecipeName = recipeName
         viewController.displayRecipeIngredients = recipeIngredients
         viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
-        viewController.ingredientLines = ingredientLines
+        viewController.recipeId = recipeId
     }
 }

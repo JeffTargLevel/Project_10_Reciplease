@@ -21,6 +21,7 @@ class RecipeViewController: UIViewController {
     var displayRecipeName: String?
     var displayRecipeIngredients: String?
     var displayRecipeTotalTimeAndRating: String?
+    var recipeId: String?
     var ingredientLines: String?
     
     private var isNotAlreadyAfavorite: Bool {
@@ -34,6 +35,7 @@ class RecipeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        updateRecipeDetailRequest()
         displayRecipe()
         toogleAddFavoriteButtonItem()
     }
@@ -59,6 +61,19 @@ class RecipeViewController: UIViewController {
         recipeTotalTimeAndRatingLabel.layer.cornerRadius = 20
     }
     
+    // MARK: - Update request for recipe detail
+    
+    private func updateRecipeDetailRequest() {
+        guard let recipeId = recipeId else {return}
+        
+        RecipesService.getRecipeDetail(recipeId: recipeId) { (ingredientLines) in
+            guard let ingredientLines = ingredientLines else {
+                self.presentAlertForSearchFailed()
+                return
+            }
+            self.ingredientLines = ingredientLines
+        }
+    }
     // MARK: - Add and save recipe in favorite if it isn't already
     
     private func addFavoriteRecipe() {
@@ -77,6 +92,12 @@ class RecipeViewController: UIViewController {
         guard let viewController = segue.destination as? RecipeDetailViewController else {return}
         
         viewController.ingredientLines = ingredientLines
+    }
+    
+    // MARK: - Alert controller with extension
+    
+    private func presentAlertForSearchFailed() {
+        presentAlert(withTitle: "Error", message: "Search failed", dissmiss: false)
     }
     
     @IBAction func tapAddFavoriteButtonItem(_ sender: Any) {

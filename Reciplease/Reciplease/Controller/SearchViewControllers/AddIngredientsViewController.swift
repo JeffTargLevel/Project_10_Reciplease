@@ -114,8 +114,6 @@ class AddIngredientsViewController: UIViewController, UITextFieldDelegate {
         presentAlert(withTitle: "Error", message: "Excluded ingredient", dissmiss: false)
     }
     
-    // MARK: - Alert controller with extension
-    
     private func presentAlertForSearchFailed() {
         presentAlert(withTitle: "Error", message: "Search failed", dissmiss: false)
     }
