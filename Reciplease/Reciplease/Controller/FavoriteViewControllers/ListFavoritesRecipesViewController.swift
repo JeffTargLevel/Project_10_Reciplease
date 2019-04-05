@@ -29,10 +29,11 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     // MARK: - Display label noFavoritesRecipesLabel if no favorites recipes saved
     
     private func displayNoFavoritesRecipes() {
-        guard FavoriteRecipe.all.count > 0 else {
-           return noFavoritesRecipesLabel.isHidden = false
+        if listFavoritesRecipesTableView.visibleCells.isEmpty {
+            noFavoritesRecipesLabel.isHidden = false
+        } else {
+            noFavoritesRecipesLabel.isHidden = true
         }
-        noFavoritesRecipesLabel.isHidden = true
     }
     
     // MARK: - tableView for recipes saved
