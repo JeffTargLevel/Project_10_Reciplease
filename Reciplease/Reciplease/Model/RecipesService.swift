@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 
 class RecipesService {
+    
+    static private let yummlyApiKey = YummlyApiKey()
     static var ingredient = Ingredient()
     static var recipes = [Recipe]()
     
@@ -22,7 +24,7 @@ class RecipesService {
     }
     
     static func getRecipes(callback: @escaping (Bool, Recipe?, Bool) -> Void) {
-        Alamofire.request("http://api.yummly.com/v1/api/recipes?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e",
+        Alamofire.request("http://api.yummly.com/v1/api/recipes?\(yummlyApiKey.key)",
                           method: .get, parameters: ["q": "\(ingredient.name)", "allowedAllergy[]": "\(SettingService.eggAllergy)&allowedAllergy[]=\(SettingService.glutenAllergy)&allowedAllergy[]=\(SettingService.peanutAllergy)"])
             .validate(statusCode: 200..<300)
             .responseData { (response) in
@@ -61,7 +63,7 @@ class RecipesService {
     }
     
     static private func getRecipeImageId(recipeId: String, callback: @escaping (UIImage?) -> Void) {
-        Alamofire.request("http://api.yummly.com/v1/api/recipe/\(recipeId)?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e",
+        Alamofire.request("http://api.yummly.com/v1/api/recipe/\(recipeId)?\(yummlyApiKey.key)",
             method: .get)
             .validate(statusCode: 200..<300)
             .responseData { (response) in
@@ -94,7 +96,7 @@ class RecipesService {
     }
     
     static func getRecipeDetail(recipeId: String, callback: @escaping (String?) -> Void) {
-        Alamofire.request("http://api.yummly.com/v1/api/recipe/\(recipeId)?_app_id=c6c31355&_app_key=aee377896e644dc57412080e345bfc7e",
+        Alamofire.request("http://api.yummly.com/v1/api/recipe/\(recipeId)?\(yummlyApiKey.key)",
             method: .get)
             .validate(statusCode: 200..<300)
             .responseData { (response) in

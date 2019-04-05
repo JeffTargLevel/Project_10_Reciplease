@@ -14,9 +14,10 @@ class RecipleaseTests: XCTestCase {
     func getGoodRecipeRequest() {
         RecipesService.ingredient.name = "cheese"
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        RecipesService.getRecipes { (success, recipe) in
+        RecipesService.getRecipes { (success, recipe, finish) in
             XCTAssertTrue(success)
             XCTAssertNotNil(recipe)
+            XCTAssertTrue(finish)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 5)
