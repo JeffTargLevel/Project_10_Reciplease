@@ -15,7 +15,6 @@ class RecipeViewController: UIViewController {
     @IBOutlet weak var recipeNameLabel: UILabel!
     @IBOutlet weak var recipeIngredientsTextView: UITextView!
     @IBOutlet weak var recipeTotalTimeAndRatingLabel: UILabel!
-    @IBOutlet weak var favoriteRecipeDetailButton: UIButton!
     
     var displayRecipeImage: UIImage?
     var displayRecipeName: String?
@@ -23,6 +22,7 @@ class RecipeViewController: UIViewController {
     var displayRecipeTotalTimeAndRating: String?
     var recipeId: String?
     var ingredientLines: String?
+    var url: String?
     
     private var isNotAlreadyAfavorite: Bool {
         for (_, recipe) in FavoriteRecipe.all.enumerated() {
@@ -66,22 +66,23 @@ class RecipeViewController: UIViewController {
     private func updateRecipeDetailRequest() {
         guard let recipeId = recipeId else {return}
         
-        RecipesService.getRecipeDetail(recipeId: recipeId) { (ingredientLines) in
-            guard let ingredientLines = ingredientLines else {
+        RecipesService.getRecipeDetailAndUrl(recipeId: recipeId) { (ingredientLines, url) in
+            guard let ingredientLines = ingredientLines, let url = url else {
                 self.presentAlertForSearchFailed()
                 return
             }
             self.ingredientLines = ingredientLines
+            self.url = url
         }
     }
     // MARK: - Add and save recipe in favorite if it isn't already
     
     private func addFavoriteRecipe() {
-        guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text, let ingredientLines = ingredientLines else {return}
+        guard let name = recipeNameLabel.text, let image = recipeImageView.image, var ingredients = recipeIngredientsTextView.text, let totalTimeAndRating = recipeTotalTimeAndRatingLabel.text, let ingredientLines = ingredientLines, let url = url else {return}
         
         guard isNotAlreadyAfavorite else {return}
         ingredients = recipeIngredientsTextView.text.replacingOccurrences(of: "\n\n☞ ", with: ", ").replacingOccurrences(of: "☞ ", with: "")
-        FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image, ingredientLines: ingredientLines)
+        FavoriteRecipe.saveFavoriteRecipe(name: name, ingredients: ingredients, totalTimeAndRating: totalTimeAndRating, image: image, ingredientLines: ingredientLines, url: url)
     }
     
     // MARK: Prepare for segue for display recipe detail in RecipeDetailViewController
@@ -100,10 +101,15 @@ class RecipeViewController: UIViewController {
         presentAlert(withTitle: "Error", message: "Search failed", dissmiss: false)
     }
     
+    private func presentAlertRecipeAdded() {
+        presentAlert(withTitle: "Cool !", message: "Recipe added in favorite", dissmiss: false)
+    }
+    
     @IBAction func tapAddFavoriteButtonItem(_ sender: Any) {
         addFavoriteRecipe()
         toogleAddFavoriteButtonItem()
+        presentAlertRecipeAdded()
     }
     
-    @IBAction func tapFavoriteRecipeDetailButton() {}
+    @IBAction func tapRecipeDetailButton() {}
 }

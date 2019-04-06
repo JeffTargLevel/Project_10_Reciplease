@@ -43,6 +43,7 @@
 		62F5B27D2225470400829E66 /* UnwindAddIngredientsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B27C2225470400829E66 /* UnwindAddIngredientsButton.swift */; };
 		62F5B27F222547AD00829E66 /* FavoriteRecipeDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B27E222547AD00829E66 /* FavoriteRecipeDetailButton.swift */; };
 		62F5B2812225488100829E66 /* DissmissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F5B2802225488100829E66 /* DissmissButton.swift */; };
+		62F9BD6C2258B2E200F449BB /* ShareFavoriteRecipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F9BD6B2258B2E200F449BB /* ShareFavoriteRecipeButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		62F5B27C2225470400829E66 /* UnwindAddIngredientsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwindAddIngredientsButton.swift; sourceTree = "<group>"; };
 		62F5B27E222547AD00829E66 /* FavoriteRecipeDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeDetailButton.swift; sourceTree = "<group>"; };
 		62F5B2802225488100829E66 /* DissmissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DissmissButton.swift; sourceTree = "<group>"; };
+		62F9BD6B2258B2E200F449BB /* ShareFavoriteRecipeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareFavoriteRecipeButton.swift; sourceTree = "<group>"; };
 		802110F5AB2A037B37A20476 /* Pods-Reciplease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.release.xcconfig"; sourceTree = "<group>"; };
 		A44464B13C7A392D43CE17A4 /* Pods-Reciplease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reciplease.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reciplease/Pods-Reciplease.debug.xcconfig"; sourceTree = "<group>"; };
 		C7060DBBF7D219230F591D8A /* Pods_RecipleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecipleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +268,7 @@
 				62F5B27E222547AD00829E66 /* FavoriteRecipeDetailButton.swift */,
 				62F5B2802225488100829E66 /* DissmissButton.swift */,
 				623E52A02229811300BD16F9 /* DissmissFavoriteRecipeDetailButton.swift */,
+				62F9BD6B2258B2E200F449BB /* ShareFavoriteRecipeButton.swift */,
 			);
 			path = FavoriteRecipeButtons;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				62EA7B44220B53F700403E60 /* Ingredient.swift in Sources */,
 				6233185C2236B9310075404E /* SettingService.swift in Sources */,
 				6230DBBC2225A75000266B89 /* FavoriteRecipe.swift in Sources */,
+				62F9BD6C2258B2E200F449BB /* ShareFavoriteRecipeButton.swift in Sources */,
 				62F5B2812225488100829E66 /* DissmissButton.swift in Sources */,
 				62AED60522293FF800422F99 /* RecipeDetailViewController.swift in Sources */,
 				622945692257930D00750FFC /* YummlyApiKey.swift in Sources */,

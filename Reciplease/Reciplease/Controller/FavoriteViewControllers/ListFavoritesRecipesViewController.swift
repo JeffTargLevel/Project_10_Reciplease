@@ -19,6 +19,7 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
     private var recipeTotalTimeAndRating: String?
     private var ingredientLines: String?
     private var indexFavoriteRecipe: Int?
+    private var url: String?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -51,11 +52,11 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
             return UITableViewCell()
         }
         let favoriteRecipe = FavoriteRecipe.all[indexPath.row]
-        guard let image = favoriteRecipe.image, let recipeTitle = favoriteRecipe.name, let recipeDetail = favoriteRecipe.ingredients, let totalTimeAndRating = favoriteRecipe.totalTimeAndRating, let ingredientLines = favoriteRecipe.ingredientLines else {
+        guard let image = favoriteRecipe.image, let recipeTitle = favoriteRecipe.name, let recipeDetail = favoriteRecipe.ingredients, let totalTimeAndRating = favoriteRecipe.totalTimeAndRating, let ingredientLines = favoriteRecipe.ingredientLines, let url = favoriteRecipe.url else {
             return UITableViewCell()
         }
         
-        cell.configure(with: image, recipeTitle: recipeTitle, recipeDetail: recipeDetail, totalTimeAndRating: totalTimeAndRating, ingredientLines: ingredientLines)
+        cell.configure(with: image, recipeTitle: recipeTitle, recipeDetail: recipeDetail, totalTimeAndRating: totalTimeAndRating, ingredientLines: ingredientLines, url: url)
         return cell
     }
     
@@ -87,6 +88,7 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         recipeTotalTimeAndRating = currentCell.totalTimeAndRatingRecipeLabel.text
         ingredientLines = currentCell.ingredientLines
         indexFavoriteRecipe = indexPath.row
+        url = currentCell.url
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,6 +103,7 @@ class ListFavoritesRecipesViewController: UIViewController, UITableViewDelegate,
         viewController.displayRecipeTotalTimeAndRating = recipeTotalTimeAndRating
         viewController.ingredientLines = ingredientLines
         viewController.indexFavoriteRecipe = indexFavoriteRecipe
+        viewController.url = url
     }
     
     // MARK: - Alert controller with extension

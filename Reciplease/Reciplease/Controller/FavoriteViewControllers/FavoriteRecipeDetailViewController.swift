@@ -13,6 +13,7 @@ class FavoriteRecipeDetailViewController: UIViewController {
     @IBOutlet weak var favoriteRecipeDetailTextView: UITextView!
     
     var ingredientLines: String?
+    var url: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,25 @@ class FavoriteRecipeDetailViewController: UIViewController {
         favoriteRecipeDetailTextView.text = "☞ " + ingredientLines.replacingOccurrences(of: ",", with: "\n\n☞ ")
     }
     
+    // MARK: - Share favorite recipe
+    
+    private func shareRecipe() {
+        let message = "My favorite recipe"
+        
+        if let link = url {
+            
+            let objectsToShare = [message,link]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            present(activityVC, animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func tapDissmissButton() {
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func tapShareFavoriteRecipeButton() {
+        shareRecipe()
+    }
 }
+

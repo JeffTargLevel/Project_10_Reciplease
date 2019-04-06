@@ -12,6 +12,11 @@ struct YummlyRecipeDetailApiResponse: Codable {
     let nutritionEstimates: [NutritionEstimate]
     let images: [Image]
     let ingredientLines: [String]
+    let attribution: Attribution
+}
+
+struct Attribution: Codable {
+    let url: String
 }
 
 struct NutritionEstimate: Codable {}

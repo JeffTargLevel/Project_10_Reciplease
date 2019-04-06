@@ -95,7 +95,7 @@ class RecipesService {
         }
     }
     
-    static func getRecipeDetail(recipeId: String, callback: @escaping (String?) -> Void) {
+    static func getRecipeDetailAndUrl(recipeId: String, callback: @escaping (String?, String?) -> Void) {
         Alamofire.request("http://api.yummly.com/v1/api/recipe/\(recipeId)?\(yummlyApiKey.key)",
             method: .get)
             .validate(statusCode: 200..<300)
@@ -105,13 +105,13 @@ class RecipesService {
                     
                     let responseJSON = try? JSONDecoder().decode(YummlyRecipeDetailApiResponse.self, from: data)
                     
-                    guard let ingredientLines = responseJSON?.ingredientLines else {return}
+                    guard let ingredientLines = responseJSON?.ingredientLines, let url = responseJSON?.attribution.url else {return}
                     
                     let onlyIngredientLines = ingredientLines.joined(separator: ",")
-                    callback(onlyIngredientLines)
+                    callback(onlyIngredientLines, url)
                     
                 case .failure:
-                    callback(nil)
+                    callback(nil, nil)
                 }
         }
     }

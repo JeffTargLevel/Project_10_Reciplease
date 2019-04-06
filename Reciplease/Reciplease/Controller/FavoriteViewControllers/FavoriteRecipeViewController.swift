@@ -21,6 +21,7 @@ class FavoriteRecipeViewController: UIViewController {
     var displayRecipeTotalTimeAndRating: String?
     var ingredientLines: String?
     var indexFavoriteRecipe: Int?
+    var url: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,7 @@ class FavoriteRecipeViewController: UIViewController {
         guard let viewController = segue.destination as? FavoriteRecipeDetailViewController else {return}
         
         viewController.ingredientLines = ingredientLines
+        viewController.url = url
     }
     
     @IBAction func tapTrashFavoriteRecipeButtonItem(_ sender: Any) {
