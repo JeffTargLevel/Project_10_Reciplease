@@ -35,7 +35,7 @@ class FavoriteRecipeDetailViewController: UIViewController {
         
         if let url = url {
             let objectsToShare = [message,url]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: [])
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             present(activityVC, animated: true, completion: nil)
         }
     }
